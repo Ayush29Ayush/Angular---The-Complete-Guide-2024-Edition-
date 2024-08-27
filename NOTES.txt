@@ -1,0 +1,111 @@
+Angular - The Complete Guide (2024 Edition)
+
+#? Section - 1 : Setting up Angular Development Environment
+1. Install Node.js to get npm and set node versions using nvm.
+2. Install Angular CLI with `npm install -g @angular/cli`.
+3. Install VS Code extensions for Angular.
+4. Create a new project with `ng new first-angular-app`.
+
+------------------------------------------------------
+
+#? Section - 2 : Angular Essentials (Components, Templates, Services, etc.)
+We will learn about:
+a) Angular Project Structure
+b) Working with Components
+c) Handling User Events
+d) Rendering & Updating Dynamic UI Content
+
+#! Analyzing the Angular Project Structure
+1. The root directory of the project contains configuration files such as `angular.json`, `tsconfig.json` and `package.json`.
+2. src directory contains all the source code files. index.html is the main entry point of the application. styles.css is the main CSS file. main.ts is the main TypeScript file which is very important as it is the first code file to be executed when your angular application starts.
+3. assets directory contains all the static assets such as images, fonts, etc.
+
+#! Understanding Components and how contents ends up on the screen
+1. index.html gets its custom components tags from main.ts file. The main.ts imports the required components from the app directory. The app directory contains all the components inside app.components.ts file.
+** app.components.ts file:**
+```
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+#! @Component is a decorator used to add metadata about the component.
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+export class AppComponent {
+  title = 'first-angular-app';
+}
+```
+
+**NOTE** => First design your page and split the parts into building blocks i.e components
+The idea is to build those building blocks as individual Components and to then compose them together to get the overall UI.
+
+#! Creating a first custom component (Header Component)
+1. The first component we will build is the Header Componnent
+2. Create a new component by using the command `ng g c header` or `ng generate component header`
+3. For this course, rather that using the command, we will create a file inside app directory named header.component.ts
+4. This will be the basic template for any custom component.
+```
+import { Component } from '@angular/core';
+
+@Component({
+    
+})
+
+export class HeaderComponent {}
+```
+5. Also create a file inside app directory named header.component.html and header.component.css
+**header.component.html:**
+```
+<header>
+    <h1>EasyTask</h1>
+</header>
+```
+
+**header.component.ts:**
+```
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-header', //! selector is used to select this component as a HTML element tag in the HTML file
+    standalone: true, //! standalone is used to tell Angular that this component is a standalone component and not a module component
+    //! template: '<h1>Hello Angular</h1>',
+    templateUrl: './header.component.html', //! templateUrl is used to specify the location of the template file
+    styleUrls: ['./header.component.css'] //! styleUrls is used to specify the location of the CSS file
+})
+
+export class HeaderComponent {}
+```
+
+#! Using the custom component (Header Component)
+#* Approach - 1 ( Not recommended )
+1. Go to main.ts and import and add the custom component to the bootstrapApplication
+2. Now go to index.html and use the custom component
+
+#* Approach - 2
+1. Add the custom component to the app.components.ts file and then go to app.components.html file
+2. Add the custom component to the imports statement
+**app.components.ts:**
+```
+import { Component } from '@angular/core';
+
+import { HeaderComponent } from './header.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [HeaderComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
+})
+export class AppComponent {}
+```
+
+**app.components.html:**
+```
+<app-header></app-header>
+```
+
