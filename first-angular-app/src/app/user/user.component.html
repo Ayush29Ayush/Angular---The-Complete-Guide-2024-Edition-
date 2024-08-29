@@ -1,8 +1,6 @@
 <div>
-    <button>
-        <img [src]="imagePath" [alt]="selectedUser.avatar">
-        <!-- <img src="" alt=""> -->
-        <!-- <span>NAME</span> -->
-        <span>{{ selectedUser.name }}</span>
+    <button (click)="onSelectUser()">
+        <img [src]="imagePath()" [alt]="selectedUser().avatar">
+        <span>{{ selectedUser().name }}</span>
     </button>
 </div>
