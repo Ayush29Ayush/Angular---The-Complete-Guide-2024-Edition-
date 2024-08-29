@@ -1,7 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
-
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+import { Component, computed, Input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -12,18 +9,15 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 })
 
 export class UserComponent {
-  // selectedUser = DUMMY_USERS[randomIndex]; // Advantage of doing this is that we can now access this selectedUser inside the template of this component.
-  selectedUser = signal(DUMMY_USERS[randomIndex]); //! using signals for state management
-  imagePath = computed(() => `assets/users/${this.selectedUser().avatar}`); //! using computed for state management which uses signals under the hood
+  //! Input decorator is used to receive data from the parent component to this child component
+  @Input() avatar!: string;
+  @Input() name!: string;
 
-  //! This is a getter
-  // get imagePath() {
-  //   return `assets/users/${this.selectedUser.avatar}`
-  // }
+  get imagePath() {
+    return `assets/users/${this.avatar}`
+  }
 
   onSelectUser() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    // this.selectedUser = DUMMY_USERS[randomIndex];
-    this.selectedUser.set(DUMMY_USERS[randomIndex]); //! using signal's set method
+    
   }
 }
