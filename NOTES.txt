@@ -117,3 +117,294 @@ export class AppComponent {}
   "src/assets"
 ],
 "
+
+#! Managing and Creating Components with the Angular CLI
+# Approach - 1
+1. Create a header directory inside the app directory and move all the header files inside it.
+# Approach - 2
+2. Use the Angular CLI command `ng g c header` or `ng generate component header` to generate the header component
+
+#! Styling and using our next custom component ( User Component )
+1. Add the css code to the css file and use the custom component (User Component) in the html file.
+
+#! Preparing User Data (To output dynamic content)
+1. Create a dummy-users.ts file in the app directory which should contain some dummy data.
+2. Now our goal is to get a random user from the dummy-users.ts file and display it on the screen from user.component.html
+
+#! Storing Data in a Component Class
+1. Inside the user.component.ts file, get random user from dummy-users.ts file. The selectedUser should be set inside the export statement so that we can use it in the template of that component.
+** user.component.ts:**
+```
+import { Component } from '@angular/core';
+import { DUMMY_USERS } from '../dummy-users';
+
+const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css'
+})
+
+//! Variables outside the export class component needs data type to be defined like let vat const but inside the export class component, just type the variable name.
+export class UserComponent {
+  selectedUser = DUMMY_USERS[randomIndex]; // Advantage of doing this is that we can now access this selectedUser inside the template of this component.
+
+  // private selectedUser = DUMMY_USERS[randomIndex]; //! Setting it private means this is accessible only inside this class and not in template
+  // public selectedUser = DUMMY_USERS[randomIndex]; //! Setting it public means this is accessible in template. This is by default.
+}
+
+```
+
+#! Outputting Dynamic Content with String Interpolation
+** user.component.html:**
+```
+<div>
+    <button>
+        <img src="" alt="">
+        <!-- <span>NAME</span> -->
+        <span>{{ selectedUser.name }}</span>
+    </button>
+</div>
+```
+
+#! Property Binding & Outputting Computed Values
+** user.component.html:**
+```
+<div>
+    <button>
+        <img [src]="'assets/users/' + selectedUser.avatar" [alt]="selectedUser.avatar">
+        <!-- <img src="" alt=""> -->
+        <!-- <span>NAME</span> -->
+        <span>{{ selectedUser.name }}</span>
+    </button>
+</div>
+```
+
+#! Using Getters for computed values
+** user.component.ts:**
+```
+import { Component } from '@angular/core';
+import { DUMMY_USERS } from '../dummy-users';
+
+const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css'
+})
+
+//! Variables outside the export class component needs data type to be defined like let vat const but inside the export class component, just type the variable name.
+export class UserComponent {
+  selectedUser = DUMMY_USERS[randomIndex]; // Advantage of doing this is that we can now access this selectedUser inside the template of this component.
+
+  // private selectedUser = DUMMY_USERS[randomIndex]; //! Setting it private means this is accessible only inside this class and not in template
+  // public selectedUser = DUMMY_USERS[randomIndex]; //! Setting it public means this is accessible in template
+
+  //! This is a getter
+  get imagePath() {
+    // return 'assets/users/' + this.selectedUser.avatar
+    return `assets/users/${this.selectedUser.avatar}`
+  }
+}
+```
+
+** user.component.html:**
+```
+<div>
+    <button>
+        <img [src]="imagePath" [alt]="selectedUser.avatar">
+        <!-- <img src="" alt=""> -->
+        <!-- <span>NAME</span> -->
+        <span>{{ selectedUser.name }}</span>
+    </button>
+</div>
+```
+
+#! Event Listeners with Event Binding
+1. Add the event listener to any HTML element using `()`. There are various types of event listeners => (click), (mousedown), (keydown), (mouseenter), (mouseleave), (mouseover), (mouseout), (mouseover), (mouseup), (touchstart), (touchend), (touchmove), (touchcancel), (scroll), etc
+** user.component.html:**
+```
+<div>
+    <button (click)="onSelectUser()">
+        <img [src]="imagePath" [alt]="selectedUser.avatar">
+        <span>{{ selectedUser.name }}</span>
+    </button>
+</div>
+```
+** user.component.ts:**
+```
+import { Component } from '@angular/core';
+import { DUMMY_USERS } from '../dummy-users';
+
+const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css'
+})
+
+//! Variables outside the export class component needs data type to be defined like let vat const but inside the export class component, just type the variable name.
+export class UserComponent {
+  selectedUser = DUMMY_USERS[randomIndex]; // Advantage of doing this is that we can now access this selectedUser inside the template of this component.
+
+  // private selectedUser = DUMMY_USERS[randomIndex]; //! Setting it private means this is accessible only inside this class and not in template
+  // public selectedUser = DUMMY_USERS[randomIndex]; //! Setting it public means this is accessible in template
+
+  //! This is a getter
+  get imagePath() {
+    // return 'assets/users/' + this.selectedUser.avatar
+    return `assets/users/${this.selectedUser.avatar}`
+  }
+
+  onSelectUser() {
+    console.log('User selected: ' + this.selectedUser.name);
+  }
+}
+```
+
+#! Managing State and Changing Data
+** user.component.ts:**
+```
+onSelectUser() {
+    // console.log('User selected: ' + this.selectedUser.name);
+    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+    this.selectedUser = DUMMY_USERS[randomIndex];
+  }
+```
+* So now when the user clicks on the button, the selectedUser is changed to a random user from the dummy-users array. Here the state of the app is changed.
+
+NOTE: Read about Angular's Change Detection Mechanism using Zone.js. or rewatch lec 27.
+
+#! Introducing Signals
+** user.component.ts:**
+"
+import { Component, computed, signal } from '@angular/core';
+import { DUMMY_USERS } from '../dummy-users';
+
+const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css'
+})
+
+export class UserComponent {
+  // selectedUser = DUMMY_USERS[randomIndex]; // Advantage of doing this is that we can now access this selectedUser inside the template of this component.
+  selectedUser = signal(DUMMY_USERS[randomIndex]); //! using signals for state management
+  imagePath = computed(() => `assets/users/${this.selectedUser().avatar}`); //! using computed for state management which uses signals under the hood
+
+  //! This is a getter
+  // get imagePath() {
+  //   return `assets/users/${this.selectedUser.avatar}`
+  // }
+
+  onSelectUser() {
+    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+    // this.selectedUser = DUMMY_USERS[randomIndex];
+    this.selectedUser.set(DUMMY_USERS[randomIndex]); //! using signal's set method
+  }
+}
+"
+** user.component.html:**
+```
+<div>
+    <button (click)="onSelectUser()">
+        <img [src]="imagePath()" [alt]="selectedUser().avatar">
+        <span>{{ selectedUser().name }}</span>
+    </button>
+</div>
+```
+
+#! Defining Component Inputs
+* Now rather than sending data from the user template to the user component, we rather now send data from the app component to the app template which is then passed to the user component as an attribute like we used to do with props. That data is then recieved by the user component and sent to the user template.
+** app.component.ts:**
+```
+import { Component } from '@angular/core';
+
+import { HeaderComponent } from './header/header.component';
+import { UserComponent } from "./user/user.component";
+import { DUMMY_USERS } from './dummy-users';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [HeaderComponent, UserComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
+})
+export class AppComponent {
+  users = DUMMY_USERS;
+}
+```
+** app.component.html:**
+```
+<!-- <header>
+  <img src="assets/angular-logo.png" alt="The Angular logo: The letter 'A'" />
+  <h1>Let's get started!</h1>
+  <p>Time to learn all about Angular!</p>
+</header> -->
+<app-header></app-header>
+<main>
+  <ul id="users">
+    <li>
+      <app-user [avatar]="users[0].avatar" [name]="users[0].name"></app-user>
+    </li>
+    <li>
+      <app-user [avatar]="users[1].avatar" [name]="users[1].name"/>
+    </li>
+    <li>
+      <app-user [avatar]="users[2].avatar" [name]="users[2].name"/>
+    </li>
+    <li>
+      <app-user [avatar]="users[3].avatar" [name]="users[3].name"/>
+    </li>
+  </ul>
+</main>
+```
+** user.component.ts:**
+```
+import { Component, computed, Input, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css'
+})
+
+export class UserComponent {
+  //! Input decorator is used to receive data from the parent component to this child component
+  @Input() avatar!: string;
+  @Input() name!: string;
+
+  get imagePath() {
+    return `assets/users/${this.avatar}`
+  }
+
+  onSelectUser() {
+    
+  }
+}
+```
+** user.component.html:**
+```
+<div>
+    <button (click)="onSelectUser()">
+        <img [src]="imagePath" [alt]="avatar">
+        <span>{{ name }}</span>
+    </button>
+</div>
+```
