@@ -1,5 +1,6 @@
 <div>
     <button (click)="onSelectUser()">
+        <!-- When using signals, we need to use parenthesis. For getter, we don't need parenthesis -->
         <img [src]="imagePath" [alt]="avatar">
         <span>{{ name }}</span>
     </button>
