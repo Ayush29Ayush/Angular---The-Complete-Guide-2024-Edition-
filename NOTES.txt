@@ -408,3 +408,133 @@ export class UserComponent {
     </button>
 </div>
 ```
+
+#! Required and Optional Inputs
+@Input({required: true}) avatar!: string;  //! This is now a required input
+@Input() name!: string;  //! This is now an optional input
+
+#! Using Signals Inputs
+** user.component.ts:**
+```
+import { Component, computed, Input, input, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css',
+})
+export class UserComponent {
+  //! Input decorator is used to receive data from the parent component to this child component
+  // @Input({required: true}) avatar!: string;
+  // @Input({required: true}) name!: string;
+
+  //! We are using signal inputs for state management where we receive data from the parent component to this child component
+  avatar = input.required<string>();
+  name = input.required<string>();
+
+  imagePath = computed(() => {
+    return `assets/users/${this.avatar}`;
+  });
+
+  // get imagePath() {
+  //   return `assets/users/${this.avatar}`;
+  // }
+
+  onSelectUser() {}
+}
+```
+
+#! Working with Outputs and Emitting Data
+When the user's click event is triggered, the onSelectUser method from user.component.ts is called. The emitted signal is then sent to the (select) event emitter. The (select) event then sends the emitted signal to the onSelectUser method of app.component.html which sends the emitted signal to the onSelectUser method from the app.component.ts which then console.logs the selected user's id.
+
+** user.component.ts:**
+```
+import { Component, computed, EventEmitter, Input, input, Output, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css',
+})
+export class UserComponent {
+  //! Input decorator is used to receive data from the parent component to this child component
+  @Input({required: true}) id!: string;
+  @Input({required: true}) avatar!: string;
+  @Input({required: true}) name!: string;
+
+  //! Output decorator is used to send data from the child component to the parent component. In this case, it emits the id of the selected user. select is a custom named event
+  @Output() select = new EventEmitter();
+
+  //! This is a getter function
+  get imagePath() {
+    return `assets/users/${this.avatar}`;
+  }
+
+  onSelectUser() {
+    this.select.emit(this.id);
+  }
+}
+```
+** user.component.html:**
+```
+<div>
+    <button (click)="onSelectUser()">
+        <!-- When using signals, we need to use parenthesis. For getter, we don't need parenthesis -->
+        <img [src]="imagePath" [alt]="avatar">
+        <span>{{ name }}</span>
+    </button>
+</div>
+```
+** app.component.ts:**
+```
+import { Component } from '@angular/core';
+
+import { HeaderComponent } from './header/header.component';
+import { UserComponent } from "./user/user.component";
+import { DUMMY_USERS } from './dummy-users';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [HeaderComponent, UserComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
+})
+export class AppComponent {
+  users = DUMMY_USERS;
+
+  //! When the user's click event is triggered, the onSelectUser method from user.component.ts is called. The emitted signal is then sent to the (select) event emitter. The (select) event then sends the emitted signal to the onSelectUser method of app.component.ts. The onSelectUser method from the app.component.ts then console.logs the selected user's id.
+  onSelectUser(id: string) {
+    console.log("Selected User with id: " + id);
+  }
+}
+```
+** app.component.html:**
+```
+<!-- <header>
+  <img src="assets/angular-logo.png" alt="The Angular logo: The letter 'A'" />
+  <h1>Let's get started!</h1>
+  <p>Time to learn all about Angular!</p>
+</header> -->
+<app-header></app-header>
+<main>
+  <ul id="users">
+    <li>
+      <app-user [id]="users[0].id" [avatar]="users[0].avatar" [name]="users[0].name" (select)="onSelectUser($event)" ></app-user>
+    </li>
+    <li>
+      <app-user [id]="users[1].id" [avatar]="users[1].avatar" [name]="users[1].name" (select)="onSelectUser($event)" />
+    </li>
+    <li>
+      <app-user [id]="users[2].id" [avatar]="users[2].avatar" [name]="users[2].name" (select)="onSelectUser($event)" />
+    </li>
+    <li>
+      <app-user [id]="users[3].id" [avatar]="users[3].avatar" [name]="users[3].name" (select)="onSelectUser($event)" />
+    </li>
+  </ul>
+</main>
+```
