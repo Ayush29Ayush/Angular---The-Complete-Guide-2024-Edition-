@@ -538,3 +538,225 @@ export class AppComponent {
   </ul>
 </main>
 ```
+
+#! Using the output() function
+** user.component.ts:**
+```
+import { Component, computed, EventEmitter, Input, input, Output, signal, output } from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css',
+})
+export class UserComponent {
+  //! Input decorator is used to receive data from the parent component to this child component
+  // @Input({required: true}) id!: string;
+  // @Input({required: true}) avatar!: string;
+  // @Input({required: true}) name!: string;
+
+  //! Output decorator is used to send data from the child component to the parent component. In this case, it emits the id of the selected user. select is a custom named event
+  // @Output() select = new EventEmitter();
+
+  id = input.required<string>();
+  avatar = input.required<string>();
+  name = input.required<string>();
+  select = output<string>();
+
+  imagePath = computed(() => `assets/users/${this.avatar}`);
+
+  onSelectUser() {
+    this.select.emit(this.id());
+  }
+
+  //! This is a getter function
+  // get imagePath() {
+  //   return `assets/users/${this.avatar}`;
+  // }
+
+  // onSelectUser() {
+  //   this.select.emit(this.id);
+  // }
+}
+```
+
+#TODO => Exercise: Tasks Component
+When the user button is clicked, the onSelectUser() function of the user.component.ts is called which emits a signal containing id of the clicked user. The onSelectUser() function of the app.component.ts then receives the emitted signal and console.logs the selected user's id + sets the selectedUserId to the emitted signal. The selectedUser() function then uses the find method on the users (DUMMY_USERS) and finds the object with the id that matches the selectedUserId. That found object is then returned to name attribute of the <app-tasks> component. The name is set as a Input for the <app-tasks> component which is then shown in the tasks.component.html.
+
+#! Accepting Objects as Inputs & Adding Appropriate Types
+** user.component.ts:**
+```
+import { Component, computed, EventEmitter, Input, input, Output, signal, output } from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css',
+})
+export class UserComponent {
+  //! Input decorator is used to receive data from the parent component to this child component
+  // @Input({required: true}) id!: string;
+  // @Input({required: true}) avatar!: string;
+  // @Input({required: true}) name!: string;
+
+  //! Input decorator is used to receive json object from the parent component to this child component
+  @Input({required: true}) user!: {id: string, avatar: string, name: string};
+
+  //! Output decorator is used to send data from the child component to the parent component. In this case, it emits the id of the selected user. select is a custom named event
+  @Output() select = new EventEmitter<string>();
+
+  //! This is a getter function
+  get imagePath() {
+    // return `assets/users/${this.avatar}`;
+    return `assets/users/${this.user.avatar}`;
+  }
+
+  onSelectUser() {
+    // this.select.emit(this.id);
+    this.select.emit(this.user.id);
+  }
+}
+```
+** user.component.html:**
+```
+<div>
+    <button (click)="onSelectUser()">
+        <!-- When using signals, we need to use parenthesis. For getter, we don't need parenthesis -->
+        <img [src]="imagePath" [alt]="user.name">
+        <span>{{ user.name }}</span>
+    </button>
+</div>
+```
+** app.component.ts:**
+```
+<!-- <header>
+  <img src="assets/angular-logo.png" alt="The Angular logo: The letter 'A'" />
+  <h1>Let's get started!</h1>
+  <p>Time to learn all about Angular!</p>
+</header> -->
+<app-header></app-header>
+<main>
+  <ul id="users">
+    <li>
+      <app-user [user]="users[0]" (select)="onSelectUser($event)"></app-user>
+    </li>
+    <li>
+      <app-user [user]="users[1]" (select)="onSelectUser($event)" />
+    </li>
+    <li>
+      <app-user [user]="users[2]" (select)="onSelectUser($event)" />
+    </li>
+    <li>
+      <app-user [user]="users[3]" (select)="onSelectUser($event)" />
+    </li>
+  </ul>
+
+  <app-tasks [name]="selectedUser.name" />
+</main>
+```
+
+#! TypeScript: Type Aliases & Interfaces
+In TypeScript:
+* interface is best for defining object shapes and extending them.
+* type is more versatile for creating complex types and cannot be extended or merged after declaration.
+"
+type User = {
+  id: string,
+  avatar: string,
+  name: string
+}
+
+interface User {
+  id: string;
+  avatar: string;
+  name: string;
+}
+"
+
+** user.component.ts:**
+```
+import { Component, computed, EventEmitter, Input, input, Output, signal, output } from '@angular/core';
+
+// type User = {
+//   id: string,
+//   avatar: string,
+//   name: string
+// }
+
+interface User {
+  id: string;
+  avatar: string;
+  name: string;
+}
+
+@Component({
+  selector: 'app-user',
+  standalone: true,
+  imports: [],
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css',
+})
+export class UserComponent {
+  //! Input decorator is used to receive json object from the parent component to this child component
+  // @Input({required: true}) user!: {id: string, avatar: string, name: string};
+  @Input({required: true}) user!: User;
+
+  //! Output decorator is used to send data from the child component to the parent component. In this case, it emits the id of the selected user. select is a custom named event
+  @Output() select = new EventEmitter<string>();
+
+  //! This is a getter function
+  get imagePath() {
+    return `assets/users/${this.user.avatar}`;
+  }
+
+  onSelectUser() {
+    this.select.emit(this.user.id);
+  }
+}
+```
+
+#! Outputting List Content using @for loop operator
+** app.component.html:**
+```
+<app-header></app-header>
+<main>
+  <ul id="users">
+    @for (user of users; track user.id)
+    {
+      <li>
+        <app-user [user]="user" (select)="onSelectUser($event)"></app-user>
+      </li>
+    }
+  </ul>
+
+  <app-tasks [name]="selectedUser.name" />
+</main>
+```
+
+#! Outputting Conditional Content using @if and @else
+** app.component.html:**
+```
+<app-header></app-header>
+<main>
+  <ul id="users">
+    @for (user of users; track user.id) {
+    <li>
+      <app-user [user]="user" (select)="onSelectUser($event)"></app-user>
+    </li>
+    }
+  </ul>
+
+  @if (selectedUser) {
+  <app-tasks [name]="selectedUser.name" />
+  } @else {
+  <p>Select a user to see their tasks</p>
+  }
+</main>
+```
+
+#! Using ngFor and ngIf (Legacy Angular)
+Rather than using @for and @if, we can use *ngFor and *ngIf. Refer lec - 43
