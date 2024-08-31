@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, Input, input, Output, signal } from '@angular/core';
+import { Component, computed, EventEmitter, Input, input, Output, signal, output } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -14,7 +14,7 @@ export class UserComponent {
   @Input({required: true}) name!: string;
 
   //! Output decorator is used to send data from the child component to the parent component. In this case, it emits the id of the selected user. select is a custom named event
-  @Output() select = new EventEmitter();
+  @Output() select = new EventEmitter<string>();
 
   //! This is a getter function
   get imagePath() {
