@@ -760,3 +760,6 @@ export class UserComponent {
 
 #! Using ngFor and ngIf (Legacy Angular)
 Rather than using @for and @if, we can use *ngFor and *ngIf. Refer lec - 43
+
+#! Adding more components to the Demo App
+Added task component using command => ng g c tasks/task --skip-tests
