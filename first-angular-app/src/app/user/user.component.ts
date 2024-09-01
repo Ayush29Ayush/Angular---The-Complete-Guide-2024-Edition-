@@ -1,16 +1,5 @@
 import { Component, computed, EventEmitter, Input, input, Output, signal, output } from '@angular/core';
-
-// type User = {
-//   id: string,
-//   avatar: string,
-//   name: string
-// }
-
-interface User {
-  id: string;
-  avatar: string;
-  name: string;
-}
+import { type User } from './user.model';
 
 @Component({
   selector: 'app-user',
@@ -21,7 +10,6 @@ interface User {
 })
 export class UserComponent {
   //! Input decorator is used to receive json object from the parent component to this child component
-  // @Input({required: true}) user!: {id: string, avatar: string, name: string};
   @Input({required: true}) user!: User;
 
   //! Output decorator is used to send data from the child component to the parent component. In this case, it emits the id of the selected user. select is a custom named event
