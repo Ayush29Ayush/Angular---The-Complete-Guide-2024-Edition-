@@ -851,3 +851,172 @@ export class TasksComponent {
   }
 </main>
 ```
+
+#! Outputting Task Data in the Task Component
+** tasks.component.html:**
+```
+<section id="tasks">
+  <header>
+    <h2>{{ name }}'s Tasks</h2>
+    <menu>
+      <button>Add Task</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (task of selectedUserTasks; track task.id) {
+    <li>
+      <app-task [task]="task"/>
+    </li>
+    }
+  </ul>
+</section>
+```
+
+** task.component.ts:**
+```
+import { Component, Input } from '@angular/core';
+
+interface Task {
+  id: string;
+  userId: string;
+  title: string;
+  summary: string;
+  dueDate: string;
+} 
+
+@Component({
+  selector: 'app-task',
+  standalone: true,
+  imports: [],
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.css'
+})
+export class TaskComponent {
+  @Input({required: true}) task!: Task;
+}
+```
+
+** task.component.html:**
+```
+<article>
+  <!-- <h2>Task Title</h2> -->
+  <h2>{{ task.title }}</h2>
+  <time datetime="">{{ task.dueDate }}</time>
+  <p>{{ task.summary }}</p>
+  <p class="actions">
+    <button>Complete</button>
+  </p>
+</article>
+```
+
+#! Storing Data Models in Separate Files
+* Create a separate file for each data model and import the type into the component where it is needed.
+* Example => user.model.ts and task.model.ts
+
+#! CSS Styling with Class Bindings
+Use "[class.active]="selected"" for "@Input({required: true}) selected!: boolean;" in user.component.ts which is passed to it by the parent component "<app-user [user]="user" [selected]="user.id === selectedUserId" (select)="onSelectUser($event)"></app-user>"
+
+#! More Component Communication: Deleting Tasks
+A output EventEmitter is created for task component so that whenever a completed button is clicked, the id of that task is sent to the parent component i.e the tasks component. The tasks component then filters the tasks array and removes the completed task from the array.
+** task.component.html:**
+```
+<article>
+  <h2>{{ task.title }}</h2>
+  <time datetime="">{{ task.dueDate }}</time>
+  <p>{{ task.summary }}</p>
+  <p class="actions">
+    <button (click)="onCompleteTask()">Complete</button>
+  </p>
+</article>
+```
+** task.component.ts:**
+```
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { type Task } from './task.model';
+
+@Component({
+  selector: 'app-task',
+  standalone: true,
+  imports: [],
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.css'
+})
+export class TaskComponent {
+  @Input({required: true}) task!: Task;
+  @Output() complete = new EventEmitter<string>();
+
+  onCompleteTask() {
+    this.complete.emit(this.task.id);
+  }
+}
+```
+** tasks.component.html:**
+```
+<section id="tasks">
+  <header>
+    <h2>{{ name }}'s Tasks</h2>
+    <menu>
+      <button>Add Task</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (task of selectedUserTasks; track task.id) {
+    <li>
+      <app-task [task]="task" (complete)="onCompleteTask($event)"/>
+    </li>
+    }
+  </ul>
+</section>
+```
+** tasks.component.ts:**
+```
+import { Component, Input } from '@angular/core';
+import { DUMMY_USERS } from '../dummy-users';
+import { TaskComponent } from "./task/task.component";
+
+@Component({
+  selector: 'app-tasks',
+  standalone: true,
+  imports: [TaskComponent],
+  templateUrl: './tasks.component.html',
+  styleUrl: './tasks.component.css'
+})
+export class TasksComponent {
+  @Input({required: true}) userId!: string;
+  @Input({required: true}) name!: string;
+  tasks = [
+    {
+      id: 't1',
+      userId: 'u1',
+      title: 'Master Angular',
+      summary: 'Learn all the basic and advanced features of Angular & how to apply them.',
+      dueDate: '2025-12-31',
+    },
+    {
+      id: 't2',
+      userId: 'u3',
+      title: 'Build first prototype',
+      summary: 'Build a first prototype of the online shop website',
+      dueDate: '2024-05-31',
+    },
+    {
+      id: 't3',
+      userId: 'u3',
+      title: 'Prepare issue template',
+      summary: 'Prepare and describe an issue template which will help with project management',
+      dueDate: '2024-06-15',
+    },
+  ]
+
+  //! This is a getter to get the tasks of the selected user
+  get selectedUserTasks() {
+    return this.tasks.filter(task => task.userId === this.userId);
+  }
+
+  onCompleteTask(id: string) {
+    return this.tasks = this.tasks.filter(task => task.id !== id);
+  }
+}
+```
