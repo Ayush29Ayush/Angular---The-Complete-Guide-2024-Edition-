@@ -763,3 +763,91 @@ Rather than using @for and @if, we can use *ngFor and *ngIf. Refer lec - 43
 
 #! Adding more components to the Demo App
 Added task component using command => ng g c tasks/task --skip-tests
+
+#! Outputting User Specific Tasks
+** tasks.component.html:**
+```
+<section id="tasks">
+  <header>
+    <h2>{{ name }}'s Tasks</h2>
+    <menu>
+      <button>Add Task</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (task of selectedUserTasks; track task.id) {
+    <li>
+      <app-task />
+    </li>
+    }
+  </ul>
+</section>
+```
+
+** tasks.component.ts:**
+```
+import { Component, Input } from '@angular/core';
+import { DUMMY_USERS } from '../dummy-users';
+import { TaskComponent } from "./task/task.component";
+
+@Component({
+  selector: 'app-tasks',
+  standalone: true,
+  imports: [TaskComponent],
+  templateUrl: './tasks.component.html',
+  styleUrl: './tasks.component.css'
+})
+export class TasksComponent {
+  @Input({required: true}) userId!: string;
+  @Input({required: true}) name!: string;
+  tasks = [
+    {
+      id: 't1',
+      userId: 'u1',
+      title: 'Master Angular',
+      summary: 'Learn all the basic and advanced features of Angular & how to apply them.',
+      dueDate: '2025-12-31',
+    },
+    {
+      id: 't2',
+      userId: 'u3',
+      title: 'Build first prototype',
+      summary: 'Build a first prototype of the online shop website',
+      dueDate: '2024-05-31',
+    },
+    {
+      id: 't3',
+      userId: 'u3',
+      title: 'Prepare issue template',
+      summary: 'Prepare and describe an issue template which will help with project management',
+      dueDate: '2024-06-15',
+    },
+  ]
+
+  //! This is a getter to get the tasks of the selected user
+  get selectedUserTasks() {
+    return this.tasks.filter(task => task.userId === this.userId);
+  }
+}
+```
+
+** app.component.html:**
+```
+<app-header></app-header>
+<main>
+  <ul id="users">
+    @for (user of users; track user.id) {
+    <li>
+      <app-user [user]="user" (select)="onSelectUser($event)"></app-user>
+    </li>
+    }
+  </ul>
+
+  @if (selectedUser) {
+  <app-tasks [userId]="selectedUser.id" [name]="selectedUser.name" />
+  } @else {
+  <p id="fallback">Select a user to see their tasks</p>
+  }
+</main>
+```
