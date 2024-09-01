@@ -11,6 +11,7 @@ import { type User } from './user.model';
 export class UserComponent {
   //! Input decorator is used to receive json object from the parent component to this child component
   @Input({required: true}) user!: User;
+  @Input({required: true}) selected!: boolean;
 
   //! Output decorator is used to send data from the child component to the parent component. In this case, it emits the id of the selected user. select is a custom named event
   @Output() select = new EventEmitter<string>();
