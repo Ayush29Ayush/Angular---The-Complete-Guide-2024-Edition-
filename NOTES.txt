@@ -1024,3 +1024,6 @@ export class TasksComponent {
 #! Creating and conditionally rendering another component
 1. Create a new component called "new-task" using command "ng g c new-task --skip-tests"
 2. Add a boolean variable called isAddingTask and set it to false by default, then set it to true when the user clicks on the "Add Task" button using a custom function "onStartAddTask()".
+
+#! Managing the "New Task" Dialog
+1. When the cancel button is clicked from new-task.component.html, the onCancel() function is called. This functions sends a cancel signal to the tasks.component.html, then the signal is reveived and the onCancelAddTask() function is called. This function then sets isAddingTask to false and thus the new task dialog is closed.
