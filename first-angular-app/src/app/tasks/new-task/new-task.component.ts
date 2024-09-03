@@ -17,4 +17,8 @@ export class NewTaskComponent {
   onCancel() {
     this.cancel.emit();
   }
+
+  onSubmit() {
+    console.log('New Task Created!');
+  }
 }
