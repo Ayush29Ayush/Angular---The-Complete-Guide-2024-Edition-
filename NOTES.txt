@@ -1149,3 +1149,22 @@ export class NewTaskComponent {
   }
 }
 ```
+
+#! Using the Submitted Data
+1. In new-task.component.ts, add a Output event emitter which holds the type of NewTaskData. Then write the code for onSubmit() which should emit the data from this child component to the parent component.
+2. In the tasks.component.html, add (add)="onAddTask($event)" to the <app-new-task> component. This will emit the data from the new-task.component.ts to the tasks.component.ts.>. The onAddTask() function will be defined in the tasks.component.ts.
+3. In the tasks.component.ts, add the following code to the onAddTask() function for adding the new task to the array:
+"
+onAddTask(taskData: NewTaskData) {
+    //! Use unshift to add the new task to the beginning of the array and push if you want to add it at the end
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: this.userId,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.date
+    });
+    this.isAddingTask = false;
+  }
+"
+Working Flow :- using the (ngSubmit)="onSubmit()", the onSubmit() function is called which emits the data from using ngModel 2-way binding and sends it to the parent component. Then when the (add) event listener is triggered, the onAddTask() function is called. The onAddTask() function is defined in the tasks.component.ts which adds the new task to the array.
