@@ -1168,3 +1168,67 @@ onAddTask(taskData: NewTaskData) {
   }
 "
 Working Flow :- using the (ngSubmit)="onSubmit()", the onSubmit() function is called which emits the data from using ngModel 2-way binding and sends it to the parent component. Then when the (add) event listener is triggered, the onAddTask() function is called. The onAddTask() function is defined in the tasks.component.ts which adds the new task to the array.
+
+#? More Angular features
+
+#! Content Projection with ng-content
+Since we wanted rounded border around our user component and task component, we used the ng-content directive. The <app-card> component will be used as a wrapper component.
+1. Create a new component using command "ng g c shared/card --skip-tests"
+2. Go to its template and add the following code:
+"
+<div>
+    <!-- This mechanism and feature is called content projection -->
+    <ng-content />
+</div>
+"
+3. Go to its css file and add the following code:
+"
+div {
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+"
+4. Now go to the template of any component like user and task and wrap its html code in the <app-card> component.
+
+#! Transforming Template Data with Pipes
+We can add pipes in angular templates similar to how we used to add template tags in django html code.
+** task.component.ts:**
+```
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { type Task } from './task.model';
+import { CardComponent } from "../../shared/card/card.component";
+
+@Component({
+  selector: 'app-task',
+  standalone: true,
+  imports: [CardComponent, DatePipe],
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.css'
+})
+export class TaskComponent {
+  @Input({required: true}) task!: Task;
+  @Output() complete = new EventEmitter<string>();
+
+  onCompleteTask() {
+    this.complete.emit(this.task.id);
+  }
+}
+```
+
+** task.component.html:**
+```
+<app-card>
+  <article>
+    <!-- <h2>Task Title</h2> -->
+    <h2>{{ task.title }}</h2>
+    <!-- <time>{{ task.dueDate | date }}</time> -->
+    <time>{{ task.dueDate | date: 'fullDate' }}</time>
+    <p>{{ task.summary }}</p>
+    <p class="actions">
+      <button (click)="onCompleteTask()">Complete</button>
+    </p>
+  </article>
+</app-card>
+```
