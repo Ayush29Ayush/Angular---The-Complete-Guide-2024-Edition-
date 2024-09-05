@@ -1232,3 +1232,228 @@ export class TaskComponent {
   </article>
 </app-card>
 ```
+
+#! Getting Started with Services
+In Angular, a service is a singleton class that provides shared data or functionality across multiple components. It typically contains business logic or data access code and is injected into components or other services using Angular's dependency injection system.
+
+1. In Tasks folder, create a new file called tasks.service.ts 
+** tasks.service.ts:**
+```
+import { type NewTaskData } from './task/task.model';
+
+class TasksService {
+  private tasks = [
+    {
+      id: 't1',
+      userId: 'u1',
+      title: 'Master Angular',
+      summary:
+        'Learn all the basic and advanced features of Angular & how to apply them.',
+      dueDate: '2025-12-31',
+    },
+    {
+      id: 't2',
+      userId: 'u3',
+      title: 'Build first prototype',
+      summary: 'Build a first prototype of the online shop website',
+      dueDate: '2024-05-31',
+    },
+    {
+      id: 't3',
+      userId: 'u3',
+      title: 'Prepare issue template',
+      summary:
+        'Prepare and describe an issue template which will help with project management',
+      dueDate: '2024-06-15',
+    },
+  ];
+
+  getUserTasks(userId: string) {
+    return this.tasks.filter(task => task.userId === userId);
+  }
+
+  addTask(taskData: NewTaskData, userId: string) {
+    //! Use unshift to add the new task to the beginning of the array and push if you want to add it at the end
+    this.tasks.unshift({
+        id: new Date().getTime().toString(),
+        userId: userId,
+        title: taskData.title,
+        summary: taskData.summary,
+        dueDate: taskData.date
+      });
+  }
+
+  removeTask(id: string) {
+    this.tasks = this.tasks.filter(task => task.id !== id);
+  }
+}
+```
+
+#! Getting Started with Dependency Injection && More Service Usage and Alternative Dependency Injection Mechanisms
+The service file will contain the data and methods to be used to manipulate the data in the application. 
+** tasks.service.ts:**
+```
+import { Injectable } from '@angular/core';
+import { type NewTaskData } from './task/task.model';
+
+@Injectable({ providedIn: 'root' })
+export class TasksService {
+  private tasks = [
+    {
+      id: 't1',
+      userId: 'u1',
+      title: 'Master Angular',
+      summary:
+        'Learn all the basic and advanced features of Angular & how to apply them.',
+      dueDate: '2025-12-31',
+    },
+    {
+      id: 't2',
+      userId: 'u3',
+      title: 'Build first prototype',
+      summary: 'Build a first prototype of the online shop website',
+      dueDate: '2024-05-31',
+    },
+    {
+      id: 't3',
+      userId: 'u3',
+      title: 'Prepare issue template',
+      summary:
+        'Prepare and describe an issue template which will help with project management',
+      dueDate: '2024-06-15',
+    },
+  ];
+
+  getUserTasks(userId: string) {
+    return this.tasks.filter((task) => task.userId === userId);
+  }
+
+  addTask(taskData: NewTaskData, userId: string) {
+    //! Use unshift to add the new task to the beginning of the array and push if you want to add it at the end
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: userId,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.date,
+    });
+  }
+
+  removeTask(id: string) {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+}
+```
+
+** tasks.component.html:**
+```
+@if (isAddingTask) {
+  <!-- <app-new-task [userId]="userId" (close)="onCloseAddTask()" (add)="onAddTask($event)"/> -->
+  <app-new-task [userId]="userId" (close)="onCloseAddTask()" />
+}
+
+<section id="tasks">
+  <header>
+    <h2>{{ name }}'s Tasks</h2>
+    <menu>
+      <button (click)="onStartAddTask()">Add Task</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (task of selectedUserTasks; track task.id) {
+    <li>
+      <app-task [task]="task" (complete)="onCompleteTask($event)"/>
+    </li>
+    }
+  </ul>
+</section>
+```
+
+** tasks.component.ts:**
+```
+import { Component, Input } from '@angular/core';
+import { DUMMY_USERS } from '../dummy-users';
+import { TaskComponent } from "./task/task.component";
+import { NewTaskComponent } from "./new-task/new-task.component";
+import { type NewTaskData } from './task/task.model';
+import { TasksService } from './tasks.service';
+
+@Component({
+  selector: 'app-tasks',
+  standalone: true,
+  imports: [TaskComponent, NewTaskComponent],
+  templateUrl: './tasks.component.html',
+  styleUrl: './tasks.component.css'
+})
+export class TasksComponent {
+  @Input({required: true}) userId!: string;
+  @Input({required: true}) name!: string;
+  isAddingTask = false;
+
+  //! Dependency Injection: Here you tell angular which type of value you need and angular creates it and provides it as an argument.
+  constructor(private tasksService: TasksService) {}
+
+  //! This is a getter to get the tasks of the selected user
+  get selectedUserTasks() {
+     return this.tasksService.getUserTasks(this.userId);
+  }
+
+  onCompleteTask(id: string) {}
+
+  onStartAddTask() {
+    this.isAddingTask = true;
+  }
+
+  onCloseAddTask() {
+    this.isAddingTask = false;
+  }
+}
+```
+
+** new-task.component.ts:**
+```
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NewTaskData } from '../task/task.model';
+import { TasksService } from '../tasks.service';
+
+@Component({
+  selector: 'app-new-task',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './new-task.component.html',
+  styleUrl: './new-task.component.css',
+})
+export class NewTaskComponent {
+  @Input({required: true}) userId!: string;
+  @Output() close = new EventEmitter<void>();
+  // @Output() add = new EventEmitter<NewTaskData>(); 
+  enteredTitle = '';
+  enteredSummary = '';
+  enteredDate = '';
+
+  //! This is an alternative approach to using constructor based injection.
+  private tasksService = inject(TasksService)
+
+  onCancel() {
+    this.close.emit();
+  }
+
+  onSubmit() {
+    console.log('New Task Created!');
+    // this.add.emit({
+    //   title: this.enteredTitle,
+    //   summary: this.enteredSummary,
+    //   date: this.enteredDate
+    // })
+    this.tasksService.addTask({
+      title: this.enteredTitle,
+      summary: this.enteredSummary,
+      date: this.enteredDate
+    }, this.userId);
+
+    this.close.emit();
+  }
+}
+```
