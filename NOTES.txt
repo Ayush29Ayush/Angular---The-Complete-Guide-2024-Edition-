@@ -1457,3 +1457,51 @@ export class NewTaskComponent {
   }
 }
 ```
+
+#! Time to Practice: Services
+We have to implement the removal of task logic when the complete button of the task is clicked.
+* Remove the (complete)="onCompleteTask($event)" from tasks.component.html file and @Output() complete = new EventEmitter<string>(); from task.component.ts file. as we will be using the service to remove the task. So, the output event emitter will not be used any further.
+
+** task.service.html:**
+```
+<app-card>
+  <article>
+    <!-- <h2>Task Title</h2> -->
+    <h2>{{ task.title }}</h2>
+    <!-- <time>{{ task.dueDate | date }}</time> -->
+    <time>{{ task.dueDate | date: 'fullDate' }}</time>
+    <p>{{ task.summary }}</p>
+    <p class="actions">
+      <button (click)="onCompleteTask()">Complete</button>
+    </p>
+  </article>
+</app-card>
+```
+
+** task.component.ts:**
+```
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { type Task } from './task.model';
+import { CardComponent } from "../../shared/card/card.component";
+import { TasksService } from "../tasks.service";
+
+@Component({
+  selector: 'app-task',
+  standalone: true,
+  imports: [CardComponent, DatePipe],
+  templateUrl: './task.component.html',
+  styleUrl: './task.component.css'
+})
+export class TaskComponent {
+  @Input({required: true}) task!: Task;
+  // @Output() complete = new EventEmitter<string>();
+
+  private tasksService = inject(TasksService)
+
+  onCompleteTask() {
+    // this.complete.emit(this.task.id);
+    this.tasksService.removeTask(this.task.id);
+  }
+}
+```
