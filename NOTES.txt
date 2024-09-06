@@ -1629,3 +1629,24 @@ This condensed version should help you quickly recall the core concepts and func
 4. Set any properties you want and Click on "Deploy".
 
 Deployed Link => https://66daa856f9a7e517b2c264be--incandescent-crumble-a721a3.netlify.app/
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+#? Section - 3 : Angular Essentials (Working with Modules)     --SKIPPED
+
+#! Creating a first empty module
+1. Each component will have a module so in the "app" directory, create a app.module.ts file
+** app.module.ts: **
+```
+import { NgModule } from "@angular/core";
+
+@NgModule({
+    declarations: [],
+    imports: [],
+    providers: [],
+})
+export class AppModule {} 
+```
+
+------------------------------------------------------------------------------------------------------------------------
