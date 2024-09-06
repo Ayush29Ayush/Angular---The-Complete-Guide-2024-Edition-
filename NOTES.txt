@@ -1621,3 +1621,11 @@ Here’s a short summary of the Angular module you provided, broken down into ke
 - This section covered essential Angular concepts, which will be revisited and expanded in future sections with more advanced features.
 
 This condensed version should help you quickly recall the core concepts and functionality discussed in your Angular module.
+
+#! Deployment
+1. Run command "ng build --configuration=production" to build the dist folder with the production code.
+2. Now go to netlify and use manual upload.
+3. Drag and drop the dist/essential/browser folder to the "Deploy" tab.
+4. Set any properties you want and Click on "Deploy".
+
+Deployed Link => https://66daa856f9a7e517b2c264be--incandescent-crumble-a721a3.netlify.app/
