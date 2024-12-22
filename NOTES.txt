@@ -1688,3 +1688,11 @@ header h1 {
 "
 3. Add the HeaderComponent to the imports array of the main app component (app.component.ts)
 4. Use the <app-header /> in the app.component.html file
+
+#! Adding User Input Component that collects user input with two-way-binding
+
+1. Create a component named user-input using command "ng g c user-input --skip-tests"
+2. Add css to its css file
+3. Add html to its html file
+4. Add the <app-user-input /> in the app.component.html file
+5. Add the UserInputComponent to the imports array of the main app component (app.component.ts)
