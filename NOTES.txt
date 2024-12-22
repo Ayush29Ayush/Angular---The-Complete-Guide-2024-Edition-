@@ -1696,3 +1696,100 @@ header h1 {
 3. Add html to its html file
 4. Add the <app-user-input /> in the app.component.html file
 5. Add the UserInputComponent to the imports array of the main app component (app.component.ts)
+
+#! Handling Form Submissions
+
+1. Add (ngSubmit) to the form in user-input.component.html:
+"
+<form (ngSubmit)="onSubmit()">
+</form>
+"
+2. Import FormsModule in user-input.component.ts and add it to the imports array of the main app component (app.component.ts)
+3. Write the onSubmit() function in user-input.component.ts
+"
+export class UserInputComponent {
+  onSubmit() {
+    console.log('Form submitted!');}
+}
+"
+
+#! Extracting Values with Two-Way-Binding
+** user-input.component.ts **
+"
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-user-input',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './user-input.component.html',
+  styleUrl: './user-input.component.css',
+})
+export class UserInputComponent {
+  enteredInitialInvestment = '0';
+  enteredAnnualInvestment = '0';
+  enteredExpectedReturn = '5';
+  enteredDuration = '10';
+
+  onSubmit() {
+    console.log('Form submitted!');
+    console.log(
+      this.enteredInitialInvestment,
+      this.enteredAnnualInvestment,
+      this.enteredExpectedReturn,
+      this.enteredDuration
+    )
+  }
+}
+"
+
+** user-input.component.html ** 
+"
+<!-- <p>user-input works!</p> -->
+<form (ngSubmit)="onSubmit()">
+  <div class="input-group">
+    <p>
+      <label for="initial-investment">Initial Investment</label>
+      <input
+        id="initial-investment"
+        name="initial-investment"
+        type="number"
+        [(ngModel)]="enteredInitialInvestment"
+      />
+    </p>
+    <p>
+      <label for="annual-investment">Annual Investment</label>
+      <input
+        id="annual-investment"
+        name="annual-investment"
+        type="number"
+        [(ngModel)]="enteredAnnualInvestment"
+      />
+    </p>
+  </div>
+  <div class="input-group">
+    <p>
+      <label for="expected-return">Expected Return</label>
+      <input
+        id="expected-return"
+        name="expected-return"
+        type="number"
+        [(ngModel)]="enteredExpectedReturn"
+      />
+    </p>
+    <p>
+      <label for="duration">Duration</label>
+      <input
+        id="duration"
+        name="duration"
+        type="number"
+        [(ngModel)]="enteredDuration"
+      />
+    </p>
+  </div>
+  <p>
+    <button>Calculate</button>
+  </p>
+</form>
+"
