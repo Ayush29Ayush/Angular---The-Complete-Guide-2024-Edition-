@@ -1596,7 +1596,7 @@ Here’s a short summary of the Angular module you provided, broken down into ke
 
 ### State Management
 - **Zone.js** (default) watches for data changes and updates the UI.
-- **Signals** (from Angular v16) require manual notifications of data changes, improving performance by targeting specific data updates.
+- **Signals** (from Angular v16) require manual notifications of data changes, improving performance by targeting specific data updates. Also covered computed function.
 
 ### Conditional Rendering & Loops
 - **@if Syntax** (from Angular v17) for conditional rendering, or use `ngIf` in earlier versions.
@@ -1650,3 +1650,11 @@ export class AppModule {}
 ```
 
 ------------------------------------------------------------------------------------------------------------------------
+
+#? Section - 4 : Angular Essentials - Time to Practise
+
+#! Module Intro and Starting Project
+** Build an "investment calculator" application. **
+1. Add a "Header" component with a title and image.
+2. Add a "User Input" component that collects user input with two-way-binding.
+3. Add an "InvestmentResults" component that outputs results in a table.
