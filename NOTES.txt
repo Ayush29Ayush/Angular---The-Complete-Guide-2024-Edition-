@@ -1658,3 +1658,33 @@ export class AppModule {}
 1. Add a "Header" component with a title and image.
 2. Add a "User Input" component that collects user input with two-way-binding.
 3. Add an "InvestmentResults" component that outputs results in a table.
+
+#! Adding Header Component with an image
+1. Create a component named header using command "ng g c header --skip-tests"
+2. Add the following code to the header.component.html:
+"
+<header>
+    <img src="investment-calculator-logo.png" alt="A money bag">
+    <h1>Investment Calculator</h1>
+</header>
+"
+3. Add the following code to the header.component.css:
+"
+header {
+  text-align: center;
+  margin: 3rem auto;
+}
+
+header img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: contain;
+  background-color: transparent;
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+"
+3. Add the HeaderComponent to the imports array of the main app component (app.component.ts)
+4. Use the <app-header /> in the app.component.html file
