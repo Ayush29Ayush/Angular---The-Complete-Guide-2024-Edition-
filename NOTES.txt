@@ -1927,3 +1927,16 @@ export class AppComponent {
   }
 }
 "
+
+#! Creating & Using a Data Model
+1. Create a new file inside the app directory called "investment-input.model.ts"
+"
+export interface InvestmentInput {
+    initialInvestment: number;
+    duration: number;
+    expectedReturn: number;
+    annualInvestment: number;
+}
+"
+
+Now we can import the InvestmentInput interface into the app components.
