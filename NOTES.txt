@@ -1940,3 +1940,9 @@ export interface InvestmentInput {
 "
 
 Now we can import the InvestmentInput interface into the app components.
+
+#! Passing Data from Parent to Child with @Inputs decorator
+
+1. Create a new component named "investment-results" using command "ng g c investment-results --skip-tests"
+2. Use @Input() decorator to receive data from the parent component to this child component which will be the "investment-results" component
+3. Calculate the annual data using the received data from the parent component i.e the app component and pass it to the "investment-results" component using "<app-investment-results [results]="resultsData"/>"
