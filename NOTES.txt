@@ -1946,3 +1946,36 @@ Now we can import the InvestmentInput interface into the app components.
 1. Create a new component named "investment-results" using command "ng g c investment-results --skip-tests"
 2. Use @Input() decorator to receive data from the parent component to this child component which will be the "investment-results" component
 3. Calculate the annual data using the received data from the parent component i.e the app component and pass it to the "investment-results" component using "<app-investment-results [results]="resultsData"/>"
+
+#! Outputting Data in a table and formatting output using pipes
+
+** investment-results.component.html **
+"
+@if (!results) {
+<p class="center">Please enter some values and press the "Calculate" button</p>
+} @else {
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Investment Value</th>
+      <th>Interest (Year)</th>
+      <th>Total Interest</th>
+      <th>Invested Capital</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (result of results; track result.year) {
+    <tr>
+      <td>{{ result.year }}</td>
+      <td>{{ result.valueEndOfYear.toFixed(2) | currency : "INR" }}</td>
+      <td>{{ result.interest.toFixed(2) | currency : "INR" }}</td>
+      <td>{{ result.totalInterest.toFixed(2) | currency : "INR" }}</td>
+      <td>{{ result.totalAmountInvested.toFixed(2) | currency : "INR" }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+}
+}
+"
