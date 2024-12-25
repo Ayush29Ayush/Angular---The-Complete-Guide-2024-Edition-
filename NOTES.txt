@@ -1979,3 +1979,11 @@ Now we can import the InvestmentInput interface into the app components.
 }
 }
 "
+
+-----------------------------------------THIS MARKS THE END OF THIS PROJECT-----------------------------------------
+
+#! Using Signals & Resetting The Form After Submission
+1. Now lets use signals in our project for state management
+2. Replace all @Output and @Input decorators with signals i.e output and input
+3. In template of the components, set the values with a () like this: [property] = "(signalName)()"
+* Refer the components and their templates for reference.
