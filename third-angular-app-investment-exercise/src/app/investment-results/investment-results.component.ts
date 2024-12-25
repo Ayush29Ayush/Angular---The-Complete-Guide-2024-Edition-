@@ -10,13 +10,14 @@ import { Component, Input, input } from '@angular/core';
 })
 export class InvestmentResultsComponent {
   //! Appraoch 1: Generic and usable with any version of Angular
-  @Input() results?: {
-    year: number,
-    interest: number,
-    valueEndOfYear: number,
-    annualInvestment: number,
-    totalInterest: number,
-    totalAmountInvested: number,
-  }[]
-  // results  = input() //! Approach 2
+  // @Input() results?: {
+  //   year: number,
+  //   interest: number,
+  //   valueEndOfYear: number,
+  //   annualInvestment: number,
+  //   totalInterest: number,
+  //   totalAmountInvested: number,
+  // }[]
+  //! Approach 2: Uses a signal i.e input signal decorator
+  results  = input<{year: number, interest: number, valueEndOfYear: number, annualInvestment: number, totalInterest: number, totalAmountInvested: number}[]>() 
 }
