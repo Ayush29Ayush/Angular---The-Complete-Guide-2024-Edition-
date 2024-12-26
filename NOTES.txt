@@ -1987,3 +1987,11 @@ Now we can import the InvestmentInput interface into the app components.
 2. Replace all @Output and @Input decorators with signals i.e output and input
 3. In template of the components, set the values with a () like this: [property] = "(signalName)()"
 * Refer the components and their templates for reference.
+
+#! Using a Service for Cross-Component Communication
+1. The input and output can be avoided by using a service.
+2. Create a new file inside the app directory called "investment.service.ts" where we will create a service.
+3. Use that service in the components which needs to communicate with each other.
+4. Either use the services using a constructor injection or the inject() function.
+5. Now the components can communicate with each other using the service.
+6. The code files are now clean and easy to understand.
