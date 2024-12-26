@@ -1,5 +1,6 @@
 <!-- @if (!results()) { -->
-@if (!results) {
+<!-- @if (!results) { -->
+@if (!results()) {
 <p class="center">Please enter some values and press the "Calculate" button</p>
 } @else {
 <table>
@@ -14,7 +15,8 @@
   </thead>
   <tbody>
     <!-- @for (result of results(); track result.year) { -->
-    @for (result of results; track result.year) {
+    <!-- @for (result of results; track result.year) { -->
+    @for (result of results(); track result.year) {
     <tr>
       <td>{{ result.year }}</td>
       <td>{{ result.valueEndOfYear.toFixed(2) | currency : "INR" }}</td>
