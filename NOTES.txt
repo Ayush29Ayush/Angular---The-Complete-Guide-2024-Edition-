@@ -1980,7 +1980,7 @@ Now we can import the InvestmentInput interface into the app components.
 }
 "
 
------------------------------------------THIS MARKS THE END OF THIS PROJECT-----------------------------------------
+-----------------------------------------THIS MARKS THE END OF THIS PROJECT - V1-----------------------------------------
 
 #! Using Signals & Resetting The Form After Submission
 1. Now lets use signals in our project for state management
@@ -2000,3 +2000,5 @@ Now we can import the InvestmentInput interface into the app components.
 1. Make resultData a signal in the service from investment.service.ts
 2. Use the signal in the components to access the data using computed()
 3. Again in the templates, it will be accessed using signalName()
+
+----------------------------------------------THIS MARKS THE END OF THIS PROJECT - V2----------------------------------------------
