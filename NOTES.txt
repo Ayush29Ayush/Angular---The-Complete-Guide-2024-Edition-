@@ -2002,3 +2002,11 @@ Now we can import the InvestmentInput interface into the app components.
 3. Again in the templates, it will be accessed using signalName()
 
 ----------------------------------------------THIS MARKS THE END OF THIS PROJECT - V2----------------------------------------------
+
+#? Section - 5 (Debugging Angular Apps)
+
+#! Understanding Error Messages & Fixing Errors
+1. Open the browser console and check for errors.
+2. See the error messages in the terminal.
+3. See the highlighted errors in the editor.
+4. Fix the errors in the code.
