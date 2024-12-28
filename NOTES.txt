@@ -2014,3 +2014,7 @@ Now we can import the InvestmentInput interface into the app components.
 #! Debugging Logical Errors with the Browser DevTools & Breakpoints
 1. Open the browser dev tools and click on the "Sources" tab.
 2. Set breakpoints and debug the code.
+
+#! Exploring the Angular DevTools
+1. Download the Angular DevTools extension from the Chrome Web Store.
+2. Open the browser dev tools and click on the "Angular" tab.
