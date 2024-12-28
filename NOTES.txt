@@ -2010,3 +2010,7 @@ Now we can import the InvestmentInput interface into the app components.
 2. See the error messages in the terminal.
 3. See the highlighted errors in the editor.
 4. Fix the errors in the code.
+
+#! Debugging Logical Errors with the Browser DevTools & Breakpoints
+1. Open the browser dev tools and click on the "Sources" tab.
+2. Set breakpoints and debug the code.
