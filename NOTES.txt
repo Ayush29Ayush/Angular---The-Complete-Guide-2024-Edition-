@@ -2018,3 +2018,6 @@ Now we can import the InvestmentInput interface into the app components.
 #! Exploring the Angular DevTools
 1. Download the Angular DevTools extension from the Chrome Web Store.
 2. Open the browser dev tools and click on the "Angular" tab.
+
+#? Section - 6 (Components and Templates) - Deep Dive
+1. New project folder added named "fifth-angular-app-for-components-deepdive"
