@@ -2003,15 +2003,21 @@ Now we can import the InvestmentInput interface into the app components.
 
 ----------------------------------------------THIS MARKS THE END OF THIS PROJECT - V2----------------------------------------------
 
-#? Section - 5 : Debugging Angular Applications
+#? Section - 5 (Debugging Angular Apps)
 
-1. Use breakpoints to debug the application
-2. Use Angular Dev tools
-3. Understand the error message and fix the issue
+#! Understanding Error Messages & Fixing Errors
+1. Open the browser console and check for errors.
+2. See the error messages in the terminal.
+3. See the highlighted errors in the editor.
+4. Fix the errors in the code.
 
-#? Section - 6 : Components and Templates - Deep Dive
+#! Debugging Logical Errors with the Browser DevTools & Breakpoints
+1. Open the browser dev tools and click on the "Sources" tab.
+2. Set breakpoints and debug the code.
 
-#! Starting Project & An Opportunity For Smaller Components?
+#! Exploring the Angular DevTools
+1. Download the Angular DevTools extension from the Chrome Web Store.
+2. Open the browser dev tools and click on the "Angular" tab.
 
-1. Install all the dependencies using "npm install"
-2. Start the server using "ng serve" or "ng s" command
+#? Section - 6 (Components and Templates) - Deep Dive
+1. New project folder added named "fifth-angular-app-for-components-deepdive"
