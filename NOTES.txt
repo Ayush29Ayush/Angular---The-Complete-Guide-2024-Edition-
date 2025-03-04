@@ -2020,4 +2020,8 @@ Now we can import the InvestmentInput interface into the app components.
 2. Open the browser dev tools and click on the "Angular" tab.
 
 #? Section - 6 (Components and Templates) - Deep Dive
-1. New project folder added named "fifth-angular-app-for-components-deepdive"
+
+#! Starting Project & An Opportunity For Smaller Components?
+1. New project folder added named "fifth-angular-app-for-components-templates-deepdive"
+2. npm i
+3. ng s
