@@ -2002,3 +2002,16 @@ Now we can import the InvestmentInput interface into the app components.
 3. Again in the templates, it will be accessed using signalName()
 
 ----------------------------------------------THIS MARKS THE END OF THIS PROJECT - V2----------------------------------------------
+
+#? Section - 5 : Debugging Angular Applications
+
+1. Use breakpoints to debug the application
+2. Use Angular Dev tools
+3. Understand the error message and fix the issue
+
+#? Section - 6 : Components and Templates - Deep Dive
+
+#! Starting Project & An Opportunity For Smaller Components?
+
+1. Install all the dependencies using "npm install"
+2. Start the server using "ng serve" or "ng s" command
