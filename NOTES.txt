@@ -2025,3 +2025,10 @@ Now we can import the InvestmentInput interface into the app components.
 1. New project folder added named "fifth-angular-app-for-components-templates-deepdive"
 2. npm i
 3. ng s
+
+#! When & How To Split Up Components
+1. Splitting up components is up to you.
+2. Splitting up components is a good idea when the app gets bigger.
+3. Split the app components into smaller components based on their functionality.
+4. Seperation of Concerns Principle: Every component should only do one thing.
+5. Simplicity and Code Colocation Principle: If your code is too simple, keep it in one place only.
