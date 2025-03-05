@@ -2032,3 +2032,25 @@ Now we can import the InvestmentInput interface into the app components.
 3. Split the app components into smaller components based on their functionality.
 4. Seperation of Concerns Principle: Every component should only do one thing.
 5. Simplicity and Code Colocation Principle: If your code is too simple, keep it in one place only.
+
+#! Splitting A Component Into Multiple Components
+1. ng g c header --skip-tests
+2. ng g c dashboard/server-status --skip-tests
+3. ng g c dashboard/traffic --skip-tests
+4. ng g c dashboard/tickets --skip-tests
+
+5. Split the code and insert it to their corresponding components.
+
+#! Creating Reusable Components
+1. ng g c dashboard/dashboard-item --skip-tests
+2. This will contain the common template for the dashboard components.
+
+#! Component Inputs: Repetition
+1. Refer dashboard/dashboard-item.component.ts
+2. The @Input() property will be used to pass the values from the parent component to the child component.
+3. We can also use input() decorator to pass the values from the parent component to the child component if we are using Angular 17 and above.
+
+#! Using Content Projection & ng-content
+1. Refer dashboard/dashboard-item.component.html
+2. We use <ng-content> to tell the parent component where to place the child component.
+* This concept of using <ng-content> as a placeholder for the wrapped content is also called content projection.
