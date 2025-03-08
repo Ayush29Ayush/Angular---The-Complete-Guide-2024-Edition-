@@ -2067,4 +2067,4 @@ Now we can import the InvestmentInput interface into the app components.
 #! Extending Built-in Elements with Custom Components via Attribute Selectors
 There are 2 ways to extend built-in elements:
 1. Just create a new component and use it in the template. ( selector: 'app-button' )
-2. Use the attribute selector to extend the built-in element. ( selector: 'button[appButton]' )
+2. Use the attribute selector to extend the built-in element. ( selector: 'button[appButton]' ). This means we are telling angular that whenever you see a button tag with the attribute appButton, use this component instead.
