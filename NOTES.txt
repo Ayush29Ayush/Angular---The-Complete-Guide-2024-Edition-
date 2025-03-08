@@ -2059,3 +2059,12 @@ Now we can import the InvestmentInput interface into the app components.
 1. We will create a form component which will be then used in a ticket component. Now the ticket component can be reused in other parts of the app.
 2. ng g c dashboard/tickets/new-ticket --skip-tests (for form)
 2. ng g c dashboard/tickets/ticket --skip-tests (for ticket)
+
+#! A Possible, But Not Ideal Way Of Extending Built-in Elements
+1. ng g c shared/button --skip-tests
+2. Have your reusable button code in this component and use it in other components.
+
+#! Extending Built-in Elements with Custom Components via Attribute Selectors
+There are 2 ways to extend built-in elements:
+1. Just create a new component and use it in the template. ( selector: 'app-button' )
+2. Use the attribute selector to extend the built-in element. ( selector: 'button[appButton]' )
