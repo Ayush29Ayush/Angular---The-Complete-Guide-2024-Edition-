@@ -2054,3 +2054,8 @@ Now we can import the InvestmentInput interface into the app components.
 1. Refer dashboard/dashboard-item.component.html
 2. We use <ng-content> to tell the parent component where to place the child component.
 * This concept of using <ng-content> as a placeholder for the wrapped content is also called content projection.
+
+#! Adding Forms to Components
+1. We will create a form component which will be then used in a ticket component. Now the ticket component can be reused in other parts of the app.
+2. ng g c dashboard/tickets/new-ticket --skip-tests (for form)
+2. ng g c dashboard/tickets/ticket --skip-tests (for ticket)
