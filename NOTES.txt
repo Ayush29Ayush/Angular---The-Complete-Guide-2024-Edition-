@@ -2068,3 +2068,22 @@ Now we can import the InvestmentInput interface into the app components.
 There are 2 ways to extend built-in elements:
 1. Just create a new component and use it in the template. ( selector: 'app-button' )
 2. Use the attribute selector to extend the built-in element. ( selector: 'button[appButton]' ). This means we are telling angular that whenever you see a button tag with the attribute appButton, use this component instead.
+
+#TODO => Refer => https://angular.dev/guide/components/selectors
+
+#! Supporting Content Projection with Multiple Slots
+We will make the template of the button configurable.
+
+1. configurable button component (button.component.html)
+"
+<span> <ng-content /> </span>
+<ng-content select=".icon"/>
+"
+
+2. how to use the configurable button component
+"
+<button appButton>
+  Submit 
+  <span class="icon">⌲</span>
+</button>
+"
