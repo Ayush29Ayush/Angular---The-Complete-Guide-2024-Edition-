@@ -2087,3 +2087,18 @@ We will make the template of the button configurable.
   <span class="icon">⌲</span>
 </button>
 "
+
+#! Exploring Advanced Content Projection
+"
+<button appButton>
+  Submit 
+  <span ngProjectAs="icon">⌲</span>
+</button>
+"
+button component
+"
+<span> <ng-content /> </span>
+<span class="icon">
+  <ng-content select="icon" />
+</span>
+"
