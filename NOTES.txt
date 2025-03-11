@@ -2180,3 +2180,19 @@ In Angular, **View Encapsulation** is a mechanism that controls how styles defin
 - **Advantages**: It is useful when you want to share styles across components or apply global styles. However, it can lead to unintended style conflicts if not managed carefully.
 
 Each encapsulation strategy has its use cases depending on the requirements of your application. **Emulated** is suitable for most scenarios due to its compatibility and default behavior. **ShadowDom** offers true isolation but requires modern browser support. **None** is useful for global styling but requires careful management to avoid conflicts.
+
+#! Making Sense of the Component Host Elements
+1. Rather than using button in the css file, we will use :host in the css file. 
+2. Refer "Component Host Element.png" from the notes folder.
+
+#! Using Host Elements Like Regular Elements
+1. Refer "Component Host Element.png" from the notes folder.
+2. Updated control.component.html, control.component.css and new-ticket.component.html to use :host
+
+#! Interacting With Host Elements From Inside Components
+Add "host" to your .ts file of the component whenever you have certain properties that should be added to the host element.
+Refer control.component.ts
+
+#! When (Not) To Rely On Host Elements
+1. Avoid using host elements when you need to access the host element's properties or methods directly.
+2. I replaced all the div containing id with :host in the css file. This will encapsulate the css code to the host element and the code within.
