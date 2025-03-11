@@ -2160,3 +2160,23 @@ export class ControlComponent {
 
 #! Scoping CSS Styles to Components
 Rather than having all the css code in styles.css which is the global styling file, we will split the css to its respective css files for granular control.
+
+#! Understanding & Configuring View Encapsulation
+In Angular, **View Encapsulation** is a mechanism that controls how styles defined in a component are applied and scoped. It helps prevent style conflicts between components by encapsulating styles within each component. There are three main types of view encapsulation strategies available in Angular:
+
+## 1. **Emulated (Default)**
+- **Description**: This is the default encapsulation mode in Angular. It emulates the behavior of the Shadow DOM by adding unique attributes to the component's HTML elements. These attributes ensure that styles defined within a component are scoped to that component only.
+- **How It Works**: Angular adds a unique attribute (e.g., `_ngcontent`) to the component's elements and applies styles using these attributes. The styles are added to the `` section of the HTML document.
+- **Advantages**: It does not require browser support for Shadow DOM, making it compatible with older browsers. It prevents styles from leaking out to other parts of the application.
+
+## 2. **ShadowDom**
+- **Description**: This encapsulation mode uses the browser's native Shadow DOM API to encapsulate styles. It creates a Shadow Root for the component, which isolates the component's styles from the rest of the document.
+- **How It Works**: When a component uses Shadow DOM encapsulation, Angular creates a Shadow Root for the component. This Shadow Root acts as a boundary, ensuring that styles defined within the component do not affect other parts of the application.
+- **Advantages**: It provides true isolation of styles, which can be beneficial for components that need to be reused across different applications or environments. However, it requires browser support for Shadow DOM, which might not be available in older browsers.
+
+## 3. **None**
+- **Description**: This encapsulation mode disables style encapsulation entirely. Styles defined in a component are applied globally, meaning they can affect any part of the application.
+- **How It Works**: When encapsulation is set to `None`, Angular does not add any special attributes to the component's elements. Styles are applied directly to the document, allowing them to affect any element that matches the CSS selectors.
+- **Advantages**: It is useful when you want to share styles across components or apply global styles. However, it can lead to unintended style conflicts if not managed carefully.
+
+Each encapsulation strategy has its use cases depending on the requirements of your application. **Emulated** is suitable for most scenarios due to its compatibility and default behavior. **ShadowDom** offers true isolation but requires modern browser support. **None** is useful for global styling but requires careful management to avoid conflicts.
