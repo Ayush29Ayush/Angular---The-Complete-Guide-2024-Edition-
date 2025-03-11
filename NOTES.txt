@@ -2196,3 +2196,42 @@ Refer control.component.ts
 #! When (Not) To Rely On Host Elements
 1. Avoid using host elements when you need to access the host element's properties or methods directly.
 2. I replaced all the div containing id with :host in the css file. This will encapsulate the css code to the host element and the code within.
+
+#! Interacting with Host Elements via @HostListener & @HostBinding
+
+** control.component.ts
+"
+import {
+  Component,
+  HostBinding,
+  HostListener,
+  input,
+  ViewEncapsulation,
+} from '@angular/core';
+
+@Component({
+  selector: 'app-control',
+  standalone: true,
+  imports: [],
+  templateUrl: './control.component.html',
+  styleUrl: './control.component.css',
+  encapsulation: ViewEncapsulation.None,
+  //! Approach - 1 (Recommended)
+  host: {
+    class: 'control',
+    '(click)': 'onClick()',
+  },
+})
+export class ControlComponent {
+  //! Approach - 2 (Not recommended)
+  // @HostBinding('class') className = 'control';
+  // @HostListener('click') onClick() {
+  //   console.log('Control clicked!');
+  // }
+  label = input.required<string>();
+
+  onClick() {
+    console.log('Control clicked!');
+  }
+}
+"
