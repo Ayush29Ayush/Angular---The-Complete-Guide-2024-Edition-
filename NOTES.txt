@@ -2102,3 +2102,61 @@ button component
   <ng-content select="icon" />
 </span>
 "
+
+#! Defining Content Projection Fallbacks
+You can set a fallback or a default visual in your button component inside the ng-content so that if the user does not provide any content for it, the default one is shown.
+
+** button.component.html
+"
+<span> <ng-content /> </span>
+<span class="icon">
+  <ng-content select="icon">→</ng-content>
+</span>
+"
+
+** header.component.html (we did not provide <span ngProjectAs="icon">→</span> here)
+"
+<button appButton>
+  Logout 
+</button>
+"
+
+#! Multi-Element Custom Components & Content Projection
+1. ng g c shared/control --skip-tests
+
+** control.component.ts
+"
+export class ControlComponent {
+  label = input.required<string>()
+}
+"
+
+** control.component.html
+"
+<p>
+  <input name="title" id="title" /> -->
+  <label>{{ label() }}</label>
+  <ng-content select="input, textarea" />
+</p>
+"
+
+** new-ticket.component.html
+"
+<form>
+  <app-control label="Title">
+    <input name="title" id="title" />
+  </app-control>
+  <app-control label="Request">
+    <textarea name="request" id="request" rows="3"></textarea>
+  </app-control>
+  <p>
+    <button appButton>
+      Submit
+      <span ngProjectAs="icon">⌲</span>
+    </button>
+  </p>
+</form>
+"
+
+#! Scoping CSS Styles to Components
+Rather than having all the css code in styles.css which is the global styling file, we will split the css to its respective css files for granular control.
