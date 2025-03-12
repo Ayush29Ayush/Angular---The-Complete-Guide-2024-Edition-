@@ -11,7 +11,9 @@ export class ServerStatusComponent {
   // currentStatus = 'offline';
   currentStatus: 'online' | 'offline' | 'unknown' = 'offline'; //! Setting specific string values as types uses a typescript feature called "literal Types". The idea is to only allow specific (string) values - instead of all strings.
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit() {
     setInterval(() => {
       const rnd = Math.random();
       console.log('Random Number Value =>', rnd);
