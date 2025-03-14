@@ -2364,3 +2364,11 @@ export class ServerStatusComponent implements OnInit {
   }
 }
 "
+
+------------
+
+#! Component Lifecycle - A Deep Dive
+** Refer sixth-angular-lifecycle-deep-dive project
+#TODO => Refer => https://angular.dev/guide/components/lifecycle
+
+------------
