@@ -2372,3 +2372,148 @@ export class ServerStatusComponent implements OnInit {
 #TODO => Refer => https://angular.dev/guide/components/lifecycle
 
 ------------
+
+#! Component Cleanup with ngOnDestroy
+We first extended the class and implementing the OnDestroy interface and then as per the OnDestroy interface we added the ngOnDestroy method.
+We can use ngOnDestroy directly too.
+
+"export class ServerStatusComponent implements OnInit, OnDestroy {}"
+
+#! Component Cleanup with DestroyRef
+NOTE: You can use DestroyRef instead of OnDestroy but when using Angular v16 or above. ngOnDestroy can be used with any version of Angular.
+
+** server-status.component.ts **
+"
+import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-server-status',
+  standalone: true,
+  imports: [],
+  templateUrl: './server-status.component.html',
+  styleUrl: './server-status.component.css',
+})
+export class ServerStatusComponent implements OnInit {
+  currentStatus: 'online' | 'offline' | 'unknown' = 'offline'; //! Setting specific string values as types uses a typescript feature called "literal Types". The idea is to only allow specific (string) values - instead of all strings.
+  private destroyRef = inject(DestroyRef);
+
+  constructor() {}
+
+  ngOnInit() {
+    const interval =setInterval(() => {
+      const rnd = Math.random();
+      console.log('Random Number Value =>', rnd);
+
+      if (rnd < 0.5) {
+        this.currentStatus = 'online';
+      } else if (rnd < 0.9) {
+        this.currentStatus = 'offline';
+      } else {
+        this.currentStatus = 'unknown';
+      }
+    }, 5000);
+
+    //! Destroying the interval by either using component lifecycle hooks(ngOnDestroy) or by using the destroyRef helps us to avoid memory leaks
+    this.destroyRef.onDestroy(() => {
+      clearInterval(interval);
+    });
+  }
+
+  // ngOnDestroy(): void {
+  //   console.log('ngOnDestroy');
+  // }
+}
+"
+
+#! Handling Form Submissions: Repetition
+1. Add (ngSubmit) to the form 
+
+#! Working with Template Variables (Approach - 1)
+** new-ticket.component.html **
+"
+<form (ngSubmit)="onSubmit(titleInput)">
+  <app-control label="Title">
+    <!-- <label>Title</label> -->
+    <!-- <input name="title" id="title" [(ngModel)]="enteredTitle" /> -->
+    <input name="title" id="title" #titleInput />
+  </app-control>
+  <app-control label="Request">
+    <textarea name="request" id="request" rows="3"></textarea>
+  </app-control>
+  <p>
+    <button appButton>
+      Submit
+      <span ngProjectAs="icon">⌲</span>
+    </button>
+  </p>
+</form>
+"
+
+** new-ticket.component.ts **
+"
+import { Component } from '@angular/core';
+import { ButtonComponent } from '../../../shared/button/button.component';
+import { ControlComponent } from "../../../shared/control/control.component";
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-new-ticket',
+  standalone: true,
+  imports: [ButtonComponent, ControlComponent, FormsModule],
+  templateUrl: './new-ticket.component.html',
+  styleUrl: './new-ticket.component.css'
+})
+export class NewTicketComponent {
+  onSubmit(titleElement: HTMLInputElement) {
+    console.log('Form submitted!');
+    const enteredTitle = titleElement.value;
+    console.log(enteredTitle);
+  }
+}
+"
+
+#! Extracting Input Values via Template Variables (Approach - 2)
+** new-ticket.component.html **
+"
+<form (ngSubmit)="onSubmit(titleInput.value, requestInput.value)">
+  <app-control label="Title">
+    <!-- <label>Title</label> -->
+    <!-- <input name="title" id="title" [(ngModel)]="enteredTitle" /> -->
+    <input name="title" id="title" #titleInput />
+  </app-control>
+  <app-control label="Request">
+    <textarea name="request" id="request" rows="3" #requestInput></textarea>
+  </app-control>
+  <p>
+    <button appButton>
+      Submit
+      <span ngProjectAs="icon">⌲</span>
+    </button>
+  </p>
+</form>
+"
+
+** new-ticket.component.ts **
+"
+import { Component } from '@angular/core';
+import { ButtonComponent } from '../../../shared/button/button.component';
+import { ControlComponent } from "../../../shared/control/control.component";
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-new-ticket',
+  standalone: true,
+  imports: [ButtonComponent, ControlComponent, FormsModule],
+  templateUrl: './new-ticket.component.html',
+  styleUrl: './new-ticket.component.css'
+})
+export class NewTicketComponent {
+  onSubmit(title: string, request: string) {
+    console.log("The title is: " + title + ", and the request is: " + request);
+  }
+}
+"
+
+#! Template Variables & Component Instances
+1. If you add template variable to a component, it becomes an instance of that component.
+2. If you add template variable to a HTML element, it becomes an instance of that HTML element.
