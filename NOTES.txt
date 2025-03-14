@@ -2517,3 +2517,20 @@ export class NewTicketComponent {
 #! Template Variables & Component Instances
 1. If you add template variable to a component, it becomes an instance of that component.
 2. If you add template variable to a HTML element, it becomes an instance of that HTML element.
+
+#! Getting Access to Template Elements via ViewChild
+1. Use the ViewChild decorator to get access to a template element.
+
+#! Using The viewChild Signal Function
+1. Use the viewChild function to get access to a template element.
+
+#! ViewChild vs ContentChild
+Refer video
+
+#! ngAfterViewInit and ngOnInit
+
+#! The afterRender and afterNextRender Lifecycle Functions
+Available after Angular v16
+
+#! Making Sense of Signal Effects
+Use signal and effect inside constructor
