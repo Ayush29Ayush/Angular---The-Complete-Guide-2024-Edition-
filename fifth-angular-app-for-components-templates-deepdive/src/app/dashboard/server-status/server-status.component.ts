@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
@@ -7,13 +7,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './server-status.component.html',
   styleUrl: './server-status.component.css',
 })
-export class ServerStatusComponent implements OnInit {
+export class ServerStatusComponent implements OnInit, OnDestroy {
   currentStatus: 'online' | 'offline' | 'unknown' = 'offline'; //! Setting specific string values as types uses a typescript feature called "literal Types". The idea is to only allow specific (string) values - instead of all strings.
+  // private interval?: NodeJS.Timeout;
+  private interval?: ReturnType<typeof setTimeout>;
 
   constructor() {}
 
   ngOnInit() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       const rnd = Math.random();
       console.log('Random Number Value =>', rnd);
 
@@ -25,5 +27,10 @@ export class ServerStatusComponent implements OnInit {
         this.currentStatus = 'unknown';
       }
     }, 5000);
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy');
+    clearTimeout(this.interval);
   }
 }
