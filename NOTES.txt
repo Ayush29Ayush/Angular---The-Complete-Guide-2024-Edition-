@@ -2534,3 +2534,19 @@ Available after Angular v16
 
 #! Making Sense of Signal Effects
 Use signal and effect inside constructor
+
+#! TypeScript & Type Models: Repetition
+1. Create a models file like ticket.model.ts and add the interface i.e structure of the object there. 
+2. Use the interface in the component.ts file to create the object.
+
+#! Component Outputs: Repetition
+Refer new-ticket.component.ts, ticket.component.ts and tickets.component.html
+
+#! A closer look at Template For Loops
+Refer tickets.component.html
+
+#! Revisiting Inputs & Signals
+Refer ticket.component.ts, ticket.component.html and tickets.component.html
+
+#! Updating Signal Values
+Refer ticket.component.ts, ticket.component.html and tickets.component.html
