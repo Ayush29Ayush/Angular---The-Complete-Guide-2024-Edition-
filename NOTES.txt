@@ -2550,3 +2550,20 @@ Refer ticket.component.ts, ticket.component.html and tickets.component.html
 
 #! Updating Signal Values
 Refer ticket.component.ts, ticket.component.html and tickets.component.html
+
+#! Cross-Component Communication & State Management
+1. Refer ticket.component.ts, ticket.component.html and tickets.component.html
+2. We set the output signal emitter named close which gets emitted when the user clicks on the "Mark as completed" button. 
+
+#! Two-Way Binding: Repetition
+1. Refer new-ticket.component.ts and new-ticket.component.html
+2. We use the [(ngModel)] attribute to bind the enteredTitle to the titleInput template variable.
+
+#! Setting Up Custom Two-Way Binding
+Refer video
+
+#! An Easier Way of Setting Up Custom Two-Way Binding
+Refer video
+Works for Angular 17 and above
+
+-------------------------------------------------------
