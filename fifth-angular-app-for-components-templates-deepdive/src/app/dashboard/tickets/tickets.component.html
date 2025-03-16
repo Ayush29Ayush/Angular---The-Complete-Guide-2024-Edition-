@@ -1,2 +1,18 @@
-<!-- <p>Todo...</p> -->
+<div>
+    <ul>
+        @for (ticket of tickets; track ticket.id) {
+            <li>
+                <!-- <app-ticket /> - {{ $first }} -->
+                <!-- <app-ticket /> - {{ $last }} -->
+                <!-- <app-ticket /> - {{ $odd }} -->
+                <!-- <app-ticket /> - {{ $even }} -->
+                <!-- <app-ticket /> - {{ $count }} -->
+                <app-ticket [data]="ticket" />
+            </li>
+        } @empty {
+            <li>No tickets yet</li>
+        }
+    </ul>
+</div>
+
 <app-new-ticket (add)="onAdd($event)"/>
