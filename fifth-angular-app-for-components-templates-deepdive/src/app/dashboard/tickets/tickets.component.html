@@ -7,7 +7,7 @@
                 <!-- <app-ticket /> - {{ $odd }} -->
                 <!-- <app-ticket /> - {{ $even }} -->
                 <!-- <app-ticket /> - {{ $count }} -->
-                <app-ticket [data]="ticket" />
+                <app-ticket [data]="ticket" (close)="onCloseTicket(ticket.id)" />
             </li>
         } @empty {
             <li>No tickets yet</li>
