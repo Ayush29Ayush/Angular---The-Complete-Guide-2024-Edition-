@@ -2567,3 +2567,13 @@ Refer video
 Works for Angular 17 and above
 
 -------------------------------------------------------
+
+#? Section - 7 : Enhancing Elements with Directives - Deep Dive
+
+#! Understanding Directives
+1. Directives are a way to add behavior to HTML elements.
+
+#! The Starting Project
+1. Refer seventh-directives-deep-dive folder
+2. npm i 
+3. ng s 
