@@ -2577,3 +2577,22 @@ Works for Angular 17 and above
 1. Refer seventh-directives-deep-dive folder
 2. npm i 
 3. ng s 
+
+#! Analyzing a Built-in Attribute Directive: ngModel
+1. ngModel is an example of an attribute directive because when added to a element, it changes its property.
+
+#! Analyzing a Built-in Structural Directive: ngIf
+1. We are injecting the authentication service in our login functionality component.
+2. Then we set the activePermission permission accordingly in the auth.service.ts
+3. Then in the app.component.ts we check what is the value of the activePermission and whether it is admin or not.
+4. In the app.component.html, we show a paragraph if the activePermission is admin using either @if or *ngIf directive.
+
+#! Getting Started with Custom Directives
+1. We will implement a "Are you sure you want to leave this page?" feature when we click a external link.
+2. You can create a directive using command "ng g d <>"
+3. For now, we created a file named "safe-link.directive.ts"
+
+#! Using Attribute Directives To Change Element Behavior
+1. Add the selector name of the directive which you set in the safe-link.directive.ts into the anchor tags in the learning-resources.component.html
+2. Import the Directive inside the learning-resources.directive.ts
+3. Write the logic inside the safe-link.directive.ts to show the window popup for navigating from one page to another.
