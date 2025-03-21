@@ -2596,3 +2596,11 @@ Works for Angular 17 and above
 1. Add the selector name of the directive which you set in the safe-link.directive.ts into the anchor tags in the learning-resources.component.html
 2. Import the Directive inside the learning-resources.directive.ts
 3. Write the logic inside the safe-link.directive.ts to show the window popup for navigating from one page to another.
+
+#! Working with Inputs in Custom Directives
+1. For cases where you want to reroute to another page with custom url (static url + dynamic url set by the developer).
+2. Refer safe-link.directive.ts and learning-resources.component.html
+3. "queryParam = input('myapp', {alias: 'appSafeLink'});" and "<a href="https://angular.dev" appSafeLink="myapp-docs-link">Angular Documentation</a>"
+
+#! Directives & Dependency Injection
+1. Refer safe-link.directive.ts and learning-resources.component.html
