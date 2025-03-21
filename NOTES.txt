@@ -2604,3 +2604,10 @@ Works for Angular 17 and above
 
 #! Directives & Dependency Injection
 1. Refer safe-link.directive.ts and learning-resources.component.html
+
+#! Building Another Directive
+1. ng g d auth/auth --skip-tests
+2. Use the appAuth directive in the app.component.html 
+
+#! Structural Directives & Syntactic Sugar
+1. Refer app.component.html and auth.directive.ts
