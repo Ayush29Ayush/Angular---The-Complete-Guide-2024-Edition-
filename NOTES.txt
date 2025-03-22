@@ -2638,3 +2638,11 @@ Works for Angular 17 and above
 
 #! Chaining Pipes & Being Aware of Limitations
 1. We can chain pipes like this too "<p>New York: {{ currentTemperaturs.newYork | number: '1.1-2' | temp: 'cel'}}</p>"
+
+#! Building a Pipe That Sorts Items
+1. ng g p sort --skip-tests
+2. Refer sort.pipe.ts
+
+#! Pure & Impure Pipes
+1. Add a parameter named pure to the pipe declaration in sort.pipe.ts
+2. Set the value of pure to false to make the pipe impure
