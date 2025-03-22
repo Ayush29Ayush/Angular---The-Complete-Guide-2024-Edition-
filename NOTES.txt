@@ -2611,3 +2611,7 @@ Works for Angular 17 and above
 
 #! Structural Directives & Syntactic Sugar
 1. Refer app.component.html and auth.directive.ts
+
+#! Host Directives and Composition
+1. ng g d log --skip-tests
+2. use the log directive in the app.component.html and other templates where you want to log something.
