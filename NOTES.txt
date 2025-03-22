@@ -2615,3 +2615,26 @@ Works for Angular 17 and above
 #! Host Directives and Composition
 1. ng g d log --skip-tests
 2. use the log directive in the app.component.html and other templates where you want to log something.
+
+-------------------------------------------------------
+
+#? Section - 8 : Transforming Values with Pipes - Deep Dive
+
+#! Making sense of pipes
+1. A pipe is a way to transform values in a template.
+
+#! Using built in pipes
+1. <p>{{ currentDate | date }}</p>
+
+#! More Built-in Pipes Examples
+1. <p>{{ currentDate | date: 'medium' }}</p>
+2. <p>New York: {{ currentTemperaturs.newYork | number: '1.1-2' }}</p>
+
+#! Building a Custom Pipe
+1. Create a file named "temperature.pipe.ts"
+
+#! Using Custom Pipes to Perform Custom Transformations
+1. refer temperature.pipe.ts
+
+#! Chaining Pipes & Being Aware of Limitations
+1. We can chain pipes like this too "<p>New York: {{ currentTemperaturs.newYork | number: '1.1-2' | temp: 'cel'}}</p>"
