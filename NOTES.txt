@@ -2664,3 +2664,6 @@ Works for Angular 17 and above
 #! Using The Alternative Dependency Injection Syntax (Approach - 2)
 1. private tasksService = inject(TasksService)
 I prefer this approach.
+
+#! Outsourcing & Reusing Logic with Services
+1. Refer tasks.service.ts, tasks-list.component.ts and task-item.component.ts
