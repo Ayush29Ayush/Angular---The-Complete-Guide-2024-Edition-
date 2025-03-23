@@ -2667,3 +2667,42 @@ I prefer this approach.
 
 #! Outsourcing & Reusing Logic with Services
 1. Refer tasks.service.ts, tasks-list.component.ts and task-item.component.ts
+
+#! Angular Has Multiple Injectors!
+1. Root Injector
+2. Component Injector
+3. Module Injector
+4. Element Injector
+5. Null Injector
+6. Environment Injector
+
+#! There are multiple ways of providing a service
+1. Refer video
+
+#! Providing Services via the Element Injector
+1. Refer video
+
+#! Understanding the Element Injector's Behavior
+1. Refer video
+
+#! Injecting Services Into Services
+1. ng g s logging --skip-tests
+2. Refer logging.service.ts
+
+#! Analyzing Dependency Injection with the Angular DevTools
+1. Install the Angular DevTools extension.
+
+#! Using Custom DI Tokens & Providers
+1. Refer video
+
+#! Preparing A Non-Class Value For Injection
+1. Refer video
+
+#! Injecting Other Values (NOT Services)
+1. Refer video
+
+#! Angular Modules (NgModule) & Dependency Injection
+1. Refer video
+
+#! Working with Services Without Using Signals
+1. Refer video
