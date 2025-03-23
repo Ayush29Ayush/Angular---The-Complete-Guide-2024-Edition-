@@ -2646,3 +2646,21 @@ Works for Angular 17 and above
 #! Pure & Impure Pipes
 1. Add a parameter named pure to the pipe declaration in sort.pipe.ts
 2. Set the value of pure to false to make the pipe impure
+
+--------------------------------------------------
+
+#? Section - 9 : Understanding Services and Dependency Injection - Deep Dive
+
+#! The need of centralized services?
+1. Services are used to share data or logic across components.
+2. Angular's dependency injection system is used to inject services into components.
+
+#! Creating a Service
+1. Refer tasks.service.ts
+
+#! Using Angular's Dependency Injection Mechanism (Approach - 1)
+1. constructor(private tasksService: TasksService) {}
+
+#! Using The Alternative Dependency Injection Syntax (Approach - 2)
+1. private tasksService = inject(TasksService)
+I prefer this approach.
