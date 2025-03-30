@@ -2706,3 +2706,13 @@ I prefer this approach.
 
 #! Working with Services Without Using Signals
 1. Refer video
+
+------------------------------------------------------------------
+
+#? Section - 10 : Making Sense of Change Detection - Deep Dive
+
+#! Understanding How Angular Performs Change Detection
+1. The Angular change detector detects the triggered change and runs change detection to check all components in the component tree from top to bottom. This way it verifies if the corresponding model has changed. And in case of a new value, it instantly updates the DOM.
+2. Angular performs 2 checks per change detection cycle
+
+Refer videos for the rest of the theory sections 
