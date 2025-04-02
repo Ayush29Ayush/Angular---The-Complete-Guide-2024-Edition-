@@ -2716,3 +2716,173 @@ I prefer this approach.
 2. Angular performs 2 checks per change detection cycle
 
 Refer videos for the rest of the theory sections 
+
+----------------------------------------------------------------
+
+#? Section - 11 : Working with RxJS (Observables) - Deep Dive
+
+#! What are Observables & What is RxJS?
+1. RxJS concepts:
+- RxJS is a reactive programming framework that enables handling asynchronous data streams efficiently
+- An Observable is a function that returns a stream of values over time, allowing multiple emissions unlike Promises
+- Observers are objects with three methods (next, error, complete) that receive notifications from Observables
+- Operators are functions that transform, filter, or combine Observable streams into new streams
+
+#! Creating & using an observable
+Steps:-
+1. Import the required observables from rxjs
+2. subscribe to the observable where needed like on ngOnInit()
+3. unsubscribe when the component is destroyed like on ngOnDestroy()
+"
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { interval } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+})
+export class AppComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
+  ngOnInit(): void {
+    const subscription = interval(1000).subscribe({
+      next: (val) => console.log(val),
+    });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
+}
+"
+Steps:-
+  a) Observable Creation
+    * interval(1000) creates an observable that emits sequential numbers (0, 1, 2, ...) every second
+    * Each emission happens exactly 1000 milliseconds apart
+    * Without cleanup, this would continue indefinitely
+
+  b) Subscription Management
+    * The subscribe method connects to the observable stream
+    * The next handler receives each emitted value
+    * Values are logged to the console in this example
+
+  c) Modern Cleanup Pattern
+    * Uses DestroyRef instead of traditional ngOnDestroy
+    * Automatically handles cleanup when the component is destroyed
+    * More concise and modern approach compared to older patterns
+
+#TODO => Refer => https://rxjs.dev/api
+
+#! Working with RxJS Operators
+1. Refer app.component.ts
+2. map() is a transformation operator from RxJS that applies a function to each emitted value
+
+#! Working with Signals
+I now wanna use a Signal and then explore the differences and similarities
+and also how you can convert a Signal to an observable and vice versa.
+
+Here we will make a signal behave like a RxJS observable (interval) and vice versa
+"
+import { Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import { interval, map } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+})
+export class AppComponent implements OnInit {
+  clickCount = signal(0);
+  private destroyRef = inject(DestroyRef);
+
+  constructor() {
+    effect(() => {
+      console.log(`Click button clicked ${this.clickCount()} times.`);
+    })
+  }
+
+  ngOnInit(): void {
+    // const subscription = interval(1000)
+    //   .pipe(map((val) => val * 2))
+    //   .subscribe({
+    //     next: (val) => console.log(val),
+    //   });
+
+    // this.destroyRef.onDestroy(() => {
+    //   subscription.unsubscribe();
+    // });
+  }
+
+  onClick() {
+    // console.log('Control clicked!');
+    // this.clickCount.set(this.clickCount() + 1);
+    this.clickCount.update((val) => val + 1);
+  }
+}
+"
+
+#! Signals vs Observables
+1. refer images
+
+Here's a comprehensive comparison of signals and observables in Angular:
+
+| Feature | Signals | Observables |
+| --- | --- | --- |
+| **Basic Nature** | A container holding a single value that can be read/written 6:2 | A stream of values over time 6:2 |
+| **Access Pattern** | Synchronous read/write operations | Asynchronous subscription-based |
+| **Use Case** | UI state management and simple reactive updates 8:1 | Complex async operations and data streams 8:1 |
+| **API Complexity** | Simple, focused on state management 8:4 | Rich set of operators, more complex 8:4 |
+| **Dependency Tracking** | Automatic dependency tracking 8:3 | Manual subscription management 8:3 |
+| **Error Handling** | No built-in error state 5:11 | Built-in error handling 5:2 |
+| **Cleanup** | Automatic cleanup in Angular 2:0 | Manual subscription management required 1:3 |
+
+### When to Use Each
+
+**Use Signals When:**
+
+- Managing UI state
+- Handling simple reactive updates
+- Working with synchronous data
+- Building component-level features 8:1
+
+**Use Observables When:**
+
+- Handling asynchronous operations
+- Managing complex data streams
+- Working with services
+- Needing advanced RxJS operators 8:1
+
+### Code Comparison
+
+**Signals:**
+
+```typescript
+const countSignal = signal(0);
+countSignal.set(countSignal.get() + 1);
+console.log(countSignal.get()); // Output: 1
+```
+
+**Observables:**
+
+```typescript
+const countObservable = of(1).pipe(delay(1000));
+countObservable.subscribe(value => console.log(value)); // Output: 1 (after 1 second)
+```
+
+### Key Differences
+
+1. **Time Model**  
+  - Signals: Synchronous updates, no concept of time 6:6
+  - Observables: Asynchronous, values over time 6:6
+
+
+2. **Reactivity**  
+  - Signals: Automatic dependency tracking 8:3
+  - Observables: Manual subscription management 8:3
+
+
+3. **State Management**  
+  - Signals: Better for simple state updates 8:5
+  - Observables: Better for complex data streams 8:5
+
+This comparison shows that while both signals and observables can handle reactive data, they serve different purposes and are suited for different use cases. Signals are the simpler, more straightforward choice for UI state management, while observables provide more powerful features for complex asynchronous operations.
