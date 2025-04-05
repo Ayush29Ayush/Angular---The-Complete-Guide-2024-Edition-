@@ -15,6 +15,7 @@ import { map } from 'rxjs';
 })
 export class AvailablePlacesComponent implements OnInit {
   places = signal<Place[] | undefined>(undefined);
+  isFetching = signal(false);
   private httpClient = inject(HttpClient);
   private destroyRef = inject(DestroyRef);
 
@@ -22,6 +23,7 @@ export class AvailablePlacesComponent implements OnInit {
     // In the end, get() creates a blueprint for a actual get request, you need to subscribe() to then trigger the request
     // const subscription = this.httpClient.get('http://localhost:3000/places').subscribe({
     //! Define the type and shape of the response
+    this.isFetching.set(true);
     const subscription = this.httpClient
       .get<{ places: Place[] }>('http://localhost:3000/places')
       .pipe(map((resData) => resData.places))
@@ -30,6 +32,9 @@ export class AvailablePlacesComponent implements OnInit {
           console.log(places);
           this.places.set(places);
         },
+        complete: () => {
+          this.isFetching.set(false);
+        }
       });
 
     this.destroyRef.onDestroy(() => {
