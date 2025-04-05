@@ -3009,3 +3009,40 @@ export class AppComponent implements OnInit {
 #! Starting and Setup of Project
 1. cd backend, npm install, node app.js
 2. npm install, ng serve
+
+#! Getting started with Angular's HTTP Client
+There are 3 ways to setup an HTTP client in Angular:
+  * Inject the HttpClient service directly into a component (private httpClient = inject(HttpClient);)
+  * Inject the HttpClient service into a constructor of a component (constructor(private httpClient: HttpClient) {})
+  * (Must do this) To have application wide, inject the HttpClient service provider to the main.ts file (providers: [provideHttpClient()])
+
+#! Sending a GET Request To Fetch Data
+1. refer available-places.component.ts
+
+#! Transforming & Using Response Data
+1. refer available-places.component.ts
+
+#! Showing a Loading Fallback
+1. refer available-places.component.ts and available-places.component.html
+
+#! Handling HTTP Errors
+1. refer available-places.component.ts and available-places.component.html
+
+#! Sending Data to Backend
+1. refer available-places.component.ts, available-places.component.html and places.component.ts
+
+#! More Data Fetching & Some Code Duplication
+1. refer user-places.component.ts and user-places.component.html
+
+#! Outsourcing HTTP Request Logic Into A Service
+1. refer places.service.ts 
+2. I shifted all the HTTP logic from the component to the service and used them in the components.
+
+#! Managing HTTP-loaded Data via a Service
+1. refer places.service.ts and related components.
+
+#! Implementing Optimistic Updating and Potential Problems Introduced by Optimistic Updating
+1. refer places.service.ts
+
+#! Improved Optimistic Updating
+1. refer places.service.ts
