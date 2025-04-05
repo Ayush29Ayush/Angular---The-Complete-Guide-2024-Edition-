@@ -3001,3 +3001,11 @@ export class AppComponent implements OnInit {
   }
 }
 "
+
+-------------------------------
+
+#? Sending HTTP Requests & Handling Responses
+
+#! Starting and Setup of Project
+1. cd backend, npm install, node app.js
+2. npm install, ng serve
