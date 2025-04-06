@@ -3046,3 +3046,9 @@ There are 3 ways to setup an HTTP client in Angular:
 
 #! Improved Optimistic Updating
 1. refer places.service.ts
+
+#! Implementing App-wide Error Management
+1. refer shared folder, error.service.ts, app.component.ts etc.
+
+#! Sending DELETE Requests
+1. refer places.service.ts and user-places.component.ts
