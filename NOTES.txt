@@ -3052,3 +3052,7 @@ There are 3 ways to setup an HTTP client in Angular:
 
 #! Sending DELETE Requests
 1. refer places.service.ts and user-places.component.ts
+
+#! Introducing HTTP Interceptors and Introducing HTTP Response Interceptors
+1. refer main.ts 
+2. Here the Interceptor implemented is for showing the case of Logging.
