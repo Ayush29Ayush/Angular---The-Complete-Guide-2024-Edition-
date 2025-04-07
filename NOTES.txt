@@ -3004,7 +3004,7 @@ export class AppComponent implements OnInit {
 
 -------------------------------
 
-#? Sending HTTP Requests & Handling Responses
+#? Section - 12 : Sending HTTP Requests & Handling Responses
 
 #! Starting and Setup of Project
 1. cd backend, npm install, node app.js
@@ -3056,3 +3056,18 @@ There are 3 ways to setup an HTTP client in Angular:
 #! Introducing HTTP Interceptors and Introducing HTTP Response Interceptors
 1. refer main.ts 
 2. Here the Interceptor implemented is for showing the case of Logging.
+
+-----------------------------------------
+
+#? Section - 13 : Handling User Input & Working with Forms (Template-Driven and Reactive)
+
+#! Template-Driven vs Reactive Forms
+1. Template-Driven:
+  * Setting up forms via component templates
+  * Easy to get started
+  * Implementing more complex form logic is a challenge
+
+2. Reactive Forms:
+  * Setting up forms via TS code
+  * More complex to get started
+  * Implementing more complex form logic is easier
