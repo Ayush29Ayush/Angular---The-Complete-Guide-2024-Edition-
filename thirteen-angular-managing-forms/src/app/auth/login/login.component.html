@@ -11,8 +11,11 @@
     </div>
     <button class="button">Login</button>
   </div>
-  <!-- @if (form.form.controls['email'].touched && form.form.controls['password'].touched && form.form.invalid) { -->
-  @if (emailCtrl.touched && passwordCtrl.touched && form.form.invalid) {
-  <p class="control-error">Invalid values detected. Please check your input.</p>
+
+  @if (emailCtrl.touched && emailCtrl.dirty && emailCtrl.invalid) {
+  <p class="control-error">Invalid email address entered.</p>
+  }
+  @if (passwordCtrl.touched && passwordCtrl.dirty && passwordCtrl.invalid) {
+    <p class="control-error">Invalid password entered, must be atleast 6 characters long.</p>
   }
 </form>
