@@ -3103,3 +3103,54 @@ export class LoginComponent {
   }
 }
 "
+
+#! Validating Input with Form Validation Directives
+Some common validators provided from angular are:
+1. required
+2. email
+3. minLength
+4. maxLength
+5. min
+6. max, etc.
+
+#! Using the Form Validation Status To Provide User Feedback
+** login.component.ts **
+"
+export class LoginComponent {
+  onSubmit(formData: NgForm) {
+    console.log(formData.form);
+    if (formData.form.invalid) {
+      console.log("Form is invalid due to angular validators added in the template.")
+      return;
+    }
+    console.log(formData.form.value);
+    const enteredEmail = formData.form.value.email;
+    const enteredPassword = formData.form.value.password;
+    console.log(`Email: ${enteredEmail}, Password: ${enteredPassword}`);
+  }
+}
+"
+** login.component.html **
+"
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <h2>Login</h2>
+  <div class="control-row">
+    <div class="control no-margin">
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" ngModel required email #emailCtrl="ngModel" />
+    </div>
+    <div class="control no-margin">
+      <label for="password">Password</label>
+      <input id="password" type="password" name="password" ngModel required minlength="6" #passwordCtrl="ngModel" />
+    </div>
+    <button class="button">Login</button>
+  </div>
+  <!-- @if (form.form.controls['email'].touched && form.form.controls['password'].touched && form.form.invalid) { -->
+  @if (emailCtrl.touched && passwordCtrl.touched && form.form.invalid) {
+  <p class="control-error">Invalid values detected. Please check your input.</p>
+  }
+</form>
+"
+
+#! Adding Validation Styles
+1. Add new  css classes to style.css in src directory.
