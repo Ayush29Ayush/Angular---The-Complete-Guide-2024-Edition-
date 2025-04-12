@@ -3071,3 +3071,35 @@ There are 3 ways to setup an HTTP client in Angular:
   * Setting up forms via TS code
   * More complex to get started
   * Implementing more complex form logic is easier
+
+#! Template-driven: Registering Form Controls
+1. Rather than using 2 way binding using [(ngModel)], we use the ngModel directive to register form controls.
+
+#! Getting Access to the Angular-managed Form
+1. we will use <form #form="ngForm" (ngSubmit)="onSubmit(form)"> (Creates a top-level FormGroup instance and binds it to a form to track aggregate form value and validation status.)
+
+#TODO => Steps forr template-driven form handling
+1. Add ngModel tag to whichever field we want to track
+2. Add #form="ngForm" to the form instance
+3. Use another angular directive, (ngSubmit) to handle the form submission.
+4. In the .ts component file, access the form data using form.value
+"
+onSubmit(form: NgForm) {
+    console.log(form);
+    console.log(form.value);
+  }
+"
+
+#! Extracting User Input Values
+"
+export class LoginComponent {
+  onSubmit(formData: NgForm) {
+    console.log(formData.form);
+    console.log(formData.form.value);
+    const enteredEmail = formData.form.value.email;
+    const enteredPassword = formData.form.value.password;
+
+    console.log(`Email: ${enteredEmail}, Password: ${enteredPassword}`);
+  }
+}
+"
