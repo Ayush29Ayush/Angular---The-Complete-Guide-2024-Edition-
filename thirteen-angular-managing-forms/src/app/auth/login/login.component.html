@@ -1,17 +1,18 @@
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <h2>Login</h2>
-
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" name="email" ngModel />
+      <input id="email" type="email" name="email" ngModel required email #emailCtrl="ngModel" />
     </div>
-
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" name="password" ngModel />
+      <input id="password" type="password" name="password" ngModel required minlength="6" #passwordCtrl="ngModel" />
     </div>
-
     <button class="button">Login</button>
   </div>
+  <!-- @if (form.form.controls['email'].touched && form.form.controls['password'].touched && form.form.invalid) { -->
+  @if (emailCtrl.touched && passwordCtrl.touched && form.form.invalid) {
+  <p class="control-error">Invalid values detected. Please check your input.</p>
+  }
 </form>
