@@ -3215,3 +3215,6 @@ export class LoginComponent {
   }
 }
 "
+
+#! Reactive Forms: Getting Started
+1. Setup project again from scratch => thirteen-angular-managing-forms-reactive-form
