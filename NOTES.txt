@@ -3392,3 +3392,6 @@ export class LoginComponent implements OnInit {
   }
 </form>
 "
+
+#! Connecting & Registering Inputs For A Complex Form
+Refer signup.component.ts and signup.component.html
