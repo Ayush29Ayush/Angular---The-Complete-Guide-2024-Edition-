@@ -3395,3 +3395,12 @@ export class LoginComponent implements OnInit {
 
 #! Connecting & Registering Inputs For A Complex Form
 Refer signup.component.ts and signup.component.html
+
+#! Working with Nested Form Groups
+Refer signup.component.ts and signup.component.html
+* There can be more than one form group in a form.
+* In the html template, add the formGroupName of the newly created form group in the .ts file.
+
+#! Working with Form Arrays
+Refer signup.component.ts and signup.component.html
+* We will use FormArray to add multiple inputs for the same field.
