@@ -41,4 +41,11 @@
   </p>
 </section>
 
-<app-offer-preview />
+<!-- @defer{
+  <app-offer-preview />
+} -->
+@defer(on interaction; prefetch on hover) {
+  <app-offer-preview />
+} @placeholder {
+  <p class="fallback">We might have an offer...</p>
+}
