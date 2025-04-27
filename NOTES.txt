@@ -3415,3 +3415,15 @@ Advantage:-
 
 #! Introducting Route Based Lazy Loading
 Setup => fifteen-angular-lazy-loading
+
+#! Implementing Route Based Lazy Loading
+1. Refer users.routes.ts 
+2. For the /tasks route, we need to load the tasks component so that the component loads when required lazily rather that eagerly.
+3. We also moved the resolveUserTasks function from tasks.component.ts to users.routes.ts so that there is no eagerly loaded component.
+
+#! Lazy Loading Entire Route Groups
+1. Rather than individually lazy loading each route or component, we can lazy load the entire route group.
+2. Refer app.routes.ts where the entire users.routes is lazy loaded.
+
+#! Using Lazy Loading & Routing to Lazy-load Services
+1. Refer video
