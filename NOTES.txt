@@ -3427,3 +3427,37 @@ Setup => fifteen-angular-lazy-loading
 
 #! Using Lazy Loading & Routing to Lazy-load Services
 1. Refer video
+
+#! Introducing Deferrable Views
+1. Setup => fifteen-angular-lazy-loading-deferrable-views
+
+#! Defer Loading Until Viewport Visibility
+** welcome.component.html **
+"
+@defer(on viewport) {
+  <app-offer-preview />
+} @placeholder {
+  <p>We might have an offer...</p>
+}
+"
+
+#TODO => Refer => https://angular.dev/guide/templates/defer
+
+#! Deferrable Views: Using Other Triggers
+1. Other triggers for defer are:
+  * on scroll
+  * on viewport
+  * on hover
+  * on timer
+  * on idle
+  * on immediate
+
+#! Prefetching Lazy-loaded Code
+** welcome.component.html **
+"
+@defer(on interaction; prefetch on hover) {
+  <app-offer-preview />
+} @placeholder {
+  <p class="fallback">We might have an offer...</p>
+}
+"
