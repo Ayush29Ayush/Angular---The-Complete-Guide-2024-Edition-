@@ -3461,3 +3461,83 @@ Setup => fifteen-angular-lazy-loading
   <p class="fallback">We might have an offer...</p>
 }
 "
+
+#? Section - 16: Deploying Angular Apps - CSR, SSR, SGA
+
+#! Module Introduction
+1. We will learn different ways to deploy an Angular app.
+
+#! Preparing a Project For Deployment: Building It For Production
+1. Run "ng build" or "npm run build".
+2. After the build is successful, you will see the dist folder in the project root.
+3. This is the production build.
+4. This is a SPA (Single Page Application) build which is the default one.
+
+#! Building SPAs: Pros and Cons
+Pros:-
+  1. SPAs are client side only web applications.
+  2. All code executes in the browser.
+  3. No dynamic web server needed - a static host suffices
+  
+Cons:-
+  1. Initial missing content.
+  2. Bad SEO.
+
+#! SPAs : Deployment Example
+1. Search the web for "static web hosts".
+2. You will get various providers like firebase, heroku, netlify, hostinger, etc.
+3. We will use firebase for this example because it is free and google based.
+4. Go to firebase and create a new project.
+5. Click on the "Add Firebase to your web app" button.
+6. Setup Firebase Hosting, first "npm install -g firebase-tools", then "firebase login", then "firebase init".
+7. Fill in the required options (refer video).
+8. Now use "firebase deploy" to deploy the app. Make sure you have run the "ng build" command.
+
+#! Using "ng add", "ng deploy" & Angular's Built-in Deployment Support
+1. You can also use the deployment feature provided by Angular which already has support to various deployment platforms like Firebase, Netlify, Heroku, etc.
+Refer => https://angular.dev/tools/cli/deployment
+
+#! Server-side Rendering (SSR) Introduction
+Pros:-
+  1. Angular app routes are rendered on-demand on a dynamic web server.
+  2. Browser receives finished, rendered page.
+  3. Web app is hydrated("activated") and becomes a SPA after the initial rendering.
+  4. Dynamic web server is required.
+
+Cons:-
+  1. Long-taking tasks may cause empty pages
+  2. Increased and unwanted complexity.
+
+#! Setting Up SSR For An Angular App
+1. ng add @angular/ssr
+2. You will get a main.server.ts file which is the main server file for the application.
+
+Refer => https://angular.dev/guide/ssr
+
+#! Building and Service an SSR App
+1. ng add @angular/ssr
+2. ng build
+3. npm run serve:ssr:routing
+4. You will get a new address i.e http://localhost:4000.
+
+#! Authoring SSR-ready Code (Beware of Pitfalls!)
+1. We get the "locatStorage" not defined error.
+2. Refer video for solution.
+
+#! SSR and Client-Server Mismatches
+1. Refer video
+
+#! Static Site Generation (SSG) Introduction
+Pros:-
+  1. Angular app routes are pre-rendered at build time.
+  2. Browser receives finished, rendered page.
+  3. Web app is hydrated("activated") and becomes a SPA after the initial rendering.
+  4. Dynamic web server is required.
+
+Cons:-
+  1. No dynamic server side data fetching.
+
+#! Configuring & Using SSG
+1. ng add @angular/ssr
+2. ng build
+3. Refer video for other steps.
