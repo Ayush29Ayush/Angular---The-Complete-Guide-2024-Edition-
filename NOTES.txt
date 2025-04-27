@@ -3404,3 +3404,14 @@ Refer signup.component.ts and signup.component.html
 #! Working with Form Arrays
 Refer signup.component.ts and signup.component.html
 * We will use FormArray to add multiple inputs for the same field.
+
+#? Section - 15 : Code Splitting and Deferrable Views
+
+#! What is Lazy Loading and Code Splitting?
+1. Lazy Loading - The code is loaded and run when it is needed.
+Advantage:-
+  * Smaller Initial Bundle size
+  * Application is up and running quicker
+
+#! Introducting Route Based Lazy Loading
+Setup => fifteen-angular-lazy-loading
