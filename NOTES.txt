@@ -3405,6 +3405,8 @@ Refer signup.component.ts and signup.component.html
 Refer signup.component.ts and signup.component.html
 * We will use FormArray to add multiple inputs for the same field.
 
+---------------------------------------------------------------------------------------------------------------
+
 #? Section - 15 : Code Splitting and Deferrable Views
 
 #! What is Lazy Loading and Code Splitting?
@@ -3461,6 +3463,8 @@ Setup => fifteen-angular-lazy-loading
   <p class="fallback">We might have an offer...</p>
 }
 "
+
+---------------------------------------------------------------------------------------------------------------
 
 #? Section - 16: Deploying Angular Apps - CSR, SSR, SGA
 
@@ -3541,3 +3545,11 @@ Cons:-
 1. ng add @angular/ssr
 2. ng build
 3. Refer video for other steps.
+
+------------------------------------------------------------------------------------------------------------------------
+
+#? Section - 14 : Routing and Building Multi Page Single Page Applications - Deep Dive
+
+#! Module Introduction
+1. Refer => fourteen-angular-routing
+2. npm install
