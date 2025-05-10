@@ -3593,3 +3593,9 @@ export const routes: Routes = [
   },
 ];
 ```
+
+#! Rendering Routes
+1. Even though we have added routes, Angular does not know how to render them.
+2. So we need to tell Angular how to render the routes.
+3. Add routes-outlet directive in app.component.html and import RouterOutlet from @angular/router.
+4. Now Angular will know how to render the routes.
