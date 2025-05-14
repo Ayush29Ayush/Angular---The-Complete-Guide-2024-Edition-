@@ -3599,3 +3599,88 @@ export const routes: Routes = [
 2. So we need to tell Angular how to render the routes.
 3. Add routes-outlet directive in app.component.html and import RouterOutlet from @angular/router.
 4. Now Angular will know how to render the routes.
+
+#! Registering Multiple Routes
+** app.routes.ts **
+```
+import { Routes } from '@angular/router';
+import { TasksComponent } from './tasks/tasks.component';
+import { NoTaskComponent } from './tasks/no-task/no-task.component';
+export const routes: Routes = [
+  {
+    path: '', // <your-domain>/
+    component: NoTaskComponent,
+    // redirectTo: '/users/u1',
+    // pathMatch: 'full',
+    title: 'No task selected',
+  },
+  {
+    path: 'tasks', // <your-domain>/tasks
+    component: TasksComponent,
+  },
+];
+```
+
+#! Adding Links The Right Way
+** user.component.html:**
+```
+<div>
+  <!-- <a href="/tasks"> -->
+  <a routerLink="/tasks">
+    <img [src]="imagePath()" [alt]="user().name" />
+    <span>{{ user().name }}</span>
+  </a>
+</div>
+```
+
+#! Styling Active Navigation Links
+** user.component.html:**
+```
+<div>
+  <a routerLink="/tasks" routerLinkActive="selected">
+    <img [src]="imagePath()" [alt]="user().name" />
+    <span>{{ user().name }}</span>
+  </a>
+</div>
+```
+
+#! Setting Up & Navigating To Dynamic Routes
+** app.routes.ts:**
+```
+import { Routes } from '@angular/router';
+import { TasksComponent } from './tasks/tasks.component';
+import { NoTaskComponent } from './tasks/no-task/no-task.component';
+import { UserTasksComponent } from './users/user-tasks/user-tasks.component';
+
+export const routes: Routes = [
+  {
+    path: '', // <your-domain>/
+    component: NoTaskComponent,
+    title: 'No task selected',
+  },
+  {
+    path: 'users/:userId', // <your-domain>/users/<uid>
+    component: UserTasksComponent,
+  },
+  {
+    path: 'tasks', // <your-domain>/tasks
+    component: TasksComponent,
+  },
+];
+```
+
+** user.component.html:**
+```
+<div>
+  <a routerLink="/users/{{ user().id }}" routerLinkActive="selected">
+    <img [src]="imagePath()" [alt]="user().name" />
+    <span>{{ user().name }}</span>
+  </a>
+</div>
+```
+
+#! Extracting Dynamic Route Parameters via Inputs
+1. Refer user-tasks.component.ts and user-tasks.component.html
+
+#! Extracting Dynamic Route Parameters via Observables
+1. Refer video, this is the method to use for older versions of Angular.
