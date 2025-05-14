@@ -3684,3 +3684,41 @@ export const routes: Routes = [
 
 #! Extracting Dynamic Route Parameters via Observables
 1. Refer video, this is the method to use for older versions of Angular.
+
+#! Working with Nested Routes
+** app.routes.ts:**
+```
+import { Routes } from '@angular/router';
+import { TasksComponent } from './tasks/tasks.component';
+import { NoTaskComponent } from './tasks/no-task/no-task.component';
+import { UserTasksComponent } from './users/user-tasks/user-tasks.component';
+import { NewTaskComponent } from './tasks/new-task/new-task.component';
+
+export const routes: Routes = [
+  {
+    path: '', // <your-domain>/
+    component: NoTaskComponent,
+    // redirectTo: '/users/u1',
+    // pathMatch: 'full',
+    title: 'No task selected',
+  },
+  {
+    path: 'users/:userId', // <your-domain>/users/<uid>
+    component: UserTasksComponent,
+    children: [
+      {
+        path: 'tasks', // <your-domain>/users/<uid>/tasks
+        component: TasksComponent,
+      },
+      {
+        path: 'tasks/new', // <your-domain>/users/<uid>/tasks/new
+        component: NewTaskComponent
+      }
+    ]
+  }
+];
+```
+Again add router-outlet in user-tasks.component.html like we did before in app.component.html
+
+#! Route Links & Relative Links
+1. refer user-tasks.component.ts and user-tasks.component.html
